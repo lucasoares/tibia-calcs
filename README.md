@@ -1,3 +1,5 @@
+![Build](https://github.com/luizcsm/tibia-calc/workflows/Node.js%20CI/badge.svg?branch=master)
+
 # tibia-calc
 Useful calculators for Tibia MMO
 
