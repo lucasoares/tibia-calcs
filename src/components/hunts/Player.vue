@@ -12,16 +12,7 @@
       </p>
 
       <div class="text--primary">
-        <v-icon color="grey">mdi-swap-vertical</v-icon>
-        <label class="stats-key">Balance </label>
-        <span
-            :class="{
-              'red-color' : player.balance < 0,
-              'green-color' : player.balance > 0,
-              'yellow-color' : player.balance === 0
-        }">
-          {{player.balance}}</span><br>
-
+        <Balance :balance="player.balance"/>
         <v-icon color="grey">mdi-diamond-stone</v-icon>
         <label class="stats-key">Loot </label>{{player.loot}}<br>
         <v-icon color="grey">mdi-bottle-tonic-outline</v-icon>
@@ -50,8 +41,13 @@
 </template>
 
 <script>
+import Balance from '@/components/Balance.vue';
+
 export default {
   name: 'Player',
+  components: {
+    Balance,
+  },
   methods: {
     getBalanceColor(balance) {
       if (balance > 0) return 'green';
@@ -82,17 +78,5 @@ export default {
   label.stats-key {
     color: grey;
     padding-left: 4px;
-  }
-
-  .green-color {
-    color: green;
-  }
-
-  .red-color {
-    color: red;
-  }
-
-  .yellow-color {
-    color: yellow;
   }
 </style>

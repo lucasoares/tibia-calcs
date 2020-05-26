@@ -25,22 +25,21 @@
 
     <HuntsTable/>
 
-    <h2>
-      Result
-    </h2>
+    <HuntsResult/>
   </div>
 </template>
 
 <script>
 import HuntsCreationForm from '@/components/hunts/HuntsCreationForm.vue';
-import HuntsTable from '../components/hunts/HuntsTable.vue';
-
+import HuntsTable from '@/components/hunts/HuntsTable.vue';
+import HuntsResult from '@/components/hunts/HuntsResult.vue';
 
 export default {
   name: 'Loot',
   components: {
     HuntsTable,
     HuntsCreationForm,
+    HuntsResult,
   },
   data: () => ({
     creating: false,
