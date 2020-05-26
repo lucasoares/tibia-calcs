@@ -8,28 +8,23 @@
 
       <div class="text--primary">
         <v-icon color="grey">mdi-swap-vertical</v-icon>
-        <span class="stats-key">
-        Balance</span>
+        <label class="stats-key">Balance </label>
         <span
             :class="{
               'red-color' : player.balance < 0,
               'green-color' : player.balance > 0,
               'yellow-color' : player.balance === 0
         }">
-        {{player.balance}}
-        </span><br>
+          {{player.balance}}</span><br>
+
         <v-icon color="grey">mdi-diamond-stone</v-icon>
-        <span class="stats-key">
-        Loot</span> {{player.loot}}<br>
+        <label class="stats-key">Loot </label>{{player.loot}}<br>
         <v-icon color="grey">mdi-bottle-tonic-outline</v-icon>
-        <span class="stats-key">
-        Supplies</span> {{player.supplies}}<br>
+        <label class="stats-key">Supplies </label>{{player.supplies}}<br>
         <v-icon color="grey">mdi-sword-cross</v-icon>
-        <span class="stats-key">
-          Damange</span> {{player.damage}}<br>
+        <label class="stats-key">Damange </label>{{player.damage}}<br>
         <v-icon color="grey">mdi-hospital-box-outline</v-icon>
-        <span class="stats-key">
-          Healing</span> {{player.damage}}
+        <label class="stats-key">Healing </label>{{player.damage}}
       </div>
     </v-card-text>
     <v-card-text>
@@ -74,8 +69,9 @@ export default {
 </script>
 
 <style>
-  span.stats-key {
+  label.stats-key {
     color: grey;
+    padding-left: 4px;
   }
 
   .green-color {
