@@ -6,7 +6,7 @@
       <v-layout row wrap>
         <v-flex xs4 sm4 md3 x20 v-for="player in computeResult()" :key="player.name">
           <h3>{{player.name}}</h3>
-          <Balance :balance="player.balance"/>
+          <PlayerResult :result="player.balance"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -15,13 +15,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import compute from '@/utils/hunt/hunt_result';
-import Balance from '@/components/Balance.vue';
+import compute from '@/utils/hunt/result';
+import PlayerResult from '@/components/PlayerResult.vue';
 
 export default {
   name: 'HuntsResult',
   components: {
-    Balance,
+    PlayerResult,
   },
   computed: {
     ...mapState('hunts', [

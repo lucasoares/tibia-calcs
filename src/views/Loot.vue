@@ -52,9 +52,22 @@ export default {
       this.creating = false;
     },
   },
-
 };
 </script>
+
+<style>
+  .green-color {
+    color: green;
+  }
+
+  .red-color {
+    color: red;
+  }
+
+  .yellow-color {
+    color: yellow;
+  }
+</style>
 
 <style scoped>
   #main-title {

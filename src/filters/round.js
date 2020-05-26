@@ -1,4 +1,4 @@
-function round(value, accuracy, keep) {
+export function round(value, accuracy, keep) {
   if (typeof value !== 'number') return value;
 
   const fixed = value.toFixed(accuracy);

@@ -25,15 +25,4 @@ export default {
 </script>
 
 <style>
-  .green-color {
-    color: green;
-  }
-
-  .red-color {
-    color: red;
-  }
-
-  .yellow-color {
-    color: yellow;
-  }
 </style>
