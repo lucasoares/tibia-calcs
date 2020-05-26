@@ -1,20 +1,21 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import LootCalculator from '../views/LootCalculator.vue';
+import Loot from '../views/Loot.vue';
 import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
-const routes = [{
-  path: '/',
-  name: 'Home',
-  component: Home,
-},
-{
-  path: '/loot',
-  name: 'Loot Calculator',
-  component: LootCalculator,
-},
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+  },
+  {
+    path: '/loot',
+    name: 'Loot',
+    component: Loot,
+  },
 ];
 
 const router = new VueRouter({

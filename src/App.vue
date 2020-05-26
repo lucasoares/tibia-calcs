@@ -1,37 +1,39 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <router-link to="/">
-          <h1>Tibia Calc</h1>
-        </router-link>
-      </div>
-      <v-spacer></v-spacer>
-      <router-link to="/loot">
-        <v-btn text>
-          <span class="mr-2">Loot Calculator</span>
-        </v-btn>
-      </router-link>
-      <v-btn href="https://github.com/luizcsm/tibia-calc" target="_blank" text>
-        <span class="mr-2">GitHub</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <NavBar/>
 
-    <v-content>
-      <router-view />
-    </v-content>
+    <main class="main">
+      <v-content>
+        <router-view/>
+      </v-content>
+    </main>
   </v-app>
 </template>
 
 <script>
+import NavBar from './components/NavBar.vue';
+
 export default {
   name: 'App',
 
-  components: {},
-
-  data: () => ({
-    //
-  }),
+  components: {
+    NavBar,
+  },
 };
 </script>
+
+<style>
+  #app {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+
+  #main-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .main {
+    padding: 0.6rem 10% 0;
+  }
+</style>
