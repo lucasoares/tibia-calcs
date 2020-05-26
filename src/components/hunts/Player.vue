@@ -2,8 +2,13 @@
   <v-card raised class="mx-auto">
     <v-card-text>
       <p class="display-1 text--primary">
-        {{player.name}}
-        <v-icon v-if="player.leader">mdi-shield-star</v-icon>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <span>{{player.name}}</span>
+            <v-icon v-if="player.leader" v-on="on">mdi-shield-star</v-icon>
+          </template>
+          <span>Leader</span>
+        </v-tooltip>
       </p>
 
       <div class="text--primary">
@@ -69,6 +74,11 @@ export default {
 </script>
 
 <style>
+  i.mdi-shield-star {
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+
   label.stats-key {
     color: grey;
     padding-left: 4px;
