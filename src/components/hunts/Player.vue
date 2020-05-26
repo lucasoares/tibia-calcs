@@ -14,7 +14,7 @@
             :class="{
               'red-color' : player.balance < 0,
               'green-color' : player.balance > 0,
-              'yellow-color' : player.balance == 0
+              'yellow-color' : player.balance === 0
         }">
         {{player.balance}}
         </span><br>
@@ -41,7 +41,7 @@
       <v-select
           v-model="player.transferredTo"
           clearable
-          :items="hunt.players.map(player => player.name)"
+          :items="hunt.players.map(p => p.name)"
           :menu-props="{ offsetY: true }"
           label="Has transferred loot to..."
       />
