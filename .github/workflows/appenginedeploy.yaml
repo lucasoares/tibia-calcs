@@ -49,4 +49,7 @@ jobs:
         service_account_key: ${{ secrets.GCLOUD_AUTH }}
         export_default_credentials: true
     - run: gcloud info
+    - run: ls -lhsa
     - run: gcloud app deploy app.yaml
+    - run: ls -lsha
+    - run: ls -lhsa dist/
