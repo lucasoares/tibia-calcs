@@ -24,7 +24,7 @@
 <template>
   <v-app-bar class="navbar" app>
     <router-link to="/">
-      <span class="site-name">Tibia Calc</span>
+      <span class="site-name">Tibia Calcs</span>
     </router-link>
 
     <v-spacer></v-spacer>

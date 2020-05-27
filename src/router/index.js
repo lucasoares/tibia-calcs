@@ -33,6 +33,9 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      title: 'Tibia Calcs',
+    },
   },
   {
     path: '/loot',
@@ -46,6 +49,9 @@ const routes = [
     path: '*',
     name: 'catchAll',
     component: Home,
+    meta: {
+      title: 'Tibia Calcs',
+    },
   },
 ];
 
@@ -55,7 +61,7 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to) => {
+router.afterEach((to) => {
   // Use next tick to handle router history correctly
   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
   Vue.nextTick(() => {
