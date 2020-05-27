@@ -1,7 +1,7 @@
 <template>
   <div class="player-result">
     <label v-if="result > 0" class="stats-key">needs to receive </label>
-    <label v-if="result < 0" class="stats-key">owns </label>
+    <label v-if="result < 0" class="stats-key">owes </label>
     <label v-if="result === 0" class="stats-key">everything settled </label>
     <span v-if="result != 0"
           :class="{

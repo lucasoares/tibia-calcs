@@ -5,6 +5,10 @@ function mergePlayerData(oldValue, newValue) {
   };
 }
 
+function getImbuementCost(hunt, perHour) {
+  return perHour * (hunt.session / 1000 / 60 / 60);
+}
+
 function compute(enabledHunts) {
   const playerData = {};
 
@@ -14,9 +18,10 @@ function compute(enabledHunts) {
     hunt.players.forEach((player) => {
       players[player.name] = {
         name: player.name,
-        loot: player.loot,
+        loot: playerplayer.loot,
         balance: player.balance,
         transferredTo: player.transferredTo,
+        imbuementCost: player.imbuementCost,
       };
     });
 
@@ -25,11 +30,14 @@ function compute(enabledHunts) {
       const player = players[name];
 
       if (player.transferredTo) {
-        console.log(`Transfering: ${player.loot} to ${player.transferredTo}`);
         const unlockPlayerWithTonsOfLootToSell = players[player.transferredTo];
 
         unlockPlayerWithTonsOfLootToSell.balance += player.loot;
         player.balance -= player.loot;
+
+        const playerImbuementCost = getImbuementCost(hunt, player.imbuementCost);
+
+        hunt.balace -= playerImbuementCost;
       }
     });
 

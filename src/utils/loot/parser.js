@@ -3,7 +3,7 @@ const moment = require('moment');
 function getNumber(name, data) {
   const re = new RegExp(`.*${name}:`, 'g');
 
-  return parseInt(data.replace(re, '').replace(',', ''), 10);
+  return parseInt(data.replace(re, '').replace(/,/g, ''), 10);
 }
 
 function getDates(sessionData) {

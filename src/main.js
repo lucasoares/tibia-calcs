@@ -1,17 +1,19 @@
 import Vue from 'vue';
+import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
-import round from './filters/round';
-import abs from './filters/abs';
+import './filters/global_filters';
 
 Vue.config.productionTip = false;
 
 Vue.use(require('vue-moment'));
 
-Vue.filter('round', round);
-Vue.filter('abs', abs);
+Vue.use(VueAnalytics, {
+  id: 'UA-167771791-1',
+  router,
+});
 
 new Vue({
   router,
