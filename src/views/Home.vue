@@ -1,18 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1 id="main-title">
+      Tibia Calc
+    </h1>
+    <p class="description">
+      🛠️ Useful calculators for Tibia MMO
+    </p>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-};
-</script>
+<style>
+  .home {
+    text-align: center;
+  }
+</style>

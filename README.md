@@ -1,4 +1,5 @@
 ![Build](https://github.com/luizcsm/tibia-calc/workflows/Node.js%20CI/badge.svg?branch=master)
+![App Engine Deploy](https://github.com/lucasoares/tibia-calc/workflows/App%20Engine%20Deploy/badge.svg)
 
 # tibia-calc
 Useful calculators for Tibia MMO
