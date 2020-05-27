@@ -23,7 +23,7 @@ name: App Engine Deploy
 
 on:
   push:
-    branches: [ master, blank-page-7 ]
+    branches: [ master ]
 
 jobs:
   build:
