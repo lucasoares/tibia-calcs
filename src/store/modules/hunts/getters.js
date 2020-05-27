@@ -45,13 +45,10 @@ export default {
         if (player.imbuementCost) {
           const playerImbuementCost = getImbuementCost(hunt, player.imbuementCost);
 
-          console.log(`${name} - ${playerImbuementCost}`);
           huntBalance -= playerImbuementCost;
           player.balance -= playerImbuementCost;
         }
       });
-
-      console.log(huntBalance);
 
       Object.keys(players).forEach((name) => {
         const player = players[name];
