@@ -35,23 +35,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: mkdir dist
-    - run: npm run build --if-present
-    - run: ls -lhsa dist/
-    - uses: actions/checkout@v2
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '290.0.1'
         project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
         service_account_key: ${{ secrets.GCLOUD_AUTH }}
         export_default_credentials: true
-    - run: gcloud info
-    - run: ls -lhsa
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run build --if-present
     - run: gcloud app deploy app.yaml
-    - run: ls -lsha
-    - run: ls -lhsa dist/
