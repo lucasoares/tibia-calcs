@@ -26,6 +26,7 @@ import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
 
 import hunts from './modules/hunts';
+import settings from './modules/settings';
 
 const vuexPersist = new VuexPersist({
   key: 'store',
@@ -40,6 +41,7 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     hunts,
+    settings,
   },
   plugins: [vuexPersist.plugin],
 });

@@ -38,17 +38,56 @@
         </div>
 
         <div class="nav-item">
-          <a href="https://github.com/luizcsm/tibia-calc" target="_blank" rel="noopener noreferrer" class="repo-link external" >
+          <a href="https://github.com/luizcsm/tibia-calc" target="_blank" rel="noopener noreferrer"
+             class="repo-link external">
             GitHub
             <v-icon size="14px">mdi-open-in-new</v-icon>
           </a>
         </div>
       </nav>
     </div>
+
+    <v-switch
+        class="theme-switch"
+        v-model="darkTheme"
+        @change="refreshDarkTheme"
+        hide-details
+        dense
+        label="Theme"
+    ></v-switch>
   </v-app-bar>
 </template>
 
+<script>
+import { mapMutations, mapGetters } from 'vuex';
+
+export default {
+  name: 'NavBar',
+  methods: {
+    ...mapMutations('settings', ['setDarkTheme']),
+    refreshDarkTheme() {
+      this.$vuetify.theme.dark = this.getDarkTheme;
+    },
+  },
+  computed: {
+    ...mapGetters('settings', ['getDarkTheme']),
+    darkTheme: {
+      get() {
+        return this.getDarkTheme;
+      },
+      set(darkTheme) {
+        this.setDarkTheme(darkTheme);
+      },
+    },
+  },
+};
+</script>
+
 <style scoped>
+  .theme-switch {
+    margin-left: 15px;
+  }
+
   .navbar span.site-name {
     font-size: 1.3rem;
     font-weight: 500;

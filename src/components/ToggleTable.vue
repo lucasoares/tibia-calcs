@@ -29,7 +29,7 @@
         :header-props="headerProps"
         :items="items"
         :items-per-page="itemsPerPage"
-        class="mt-3 mb-5"
+        class="mt-3 mb-5 elevation-3"
         hide-default-footer
         must-sort
         single-expand
@@ -103,6 +103,10 @@ export default {
 </script>
 
 <style lang="scss">
+  .toggle-table-container {
+    border-bottom: grey;
+  }
+
   .toggle-table-container {
     .mdi-delete {
       &:hover {

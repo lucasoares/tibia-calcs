@@ -22,25 +22,7 @@
 */
 
 export default {
-  createHunt: (state, hunt) => {
-    state.identifier += 1;
-    const { identifier } = state;
-
-    const newHunt = hunt;
-    newHunt.id = identifier;
-
-    state.hunts = [newHunt].concat(state.hunts);
-  },
-  deleteHunt: (state, huntToDelete) => {
-    state.hunts = state.hunts.filter((hunt) => hunt.id !== huntToDelete.id);
-  },
-  updateHunt: (state, huntToUpdate) => {
-    const { id } = huntToUpdate;
-    state.hunts = state.hunts.map((hunt) => {
-      if (hunt.id === id) {
-        return huntToUpdate;
-      }
-      return hunt;
-    });
+  setDarkTheme: (state, dark) => {
+    state.darkTheme = dark;
   },
 };

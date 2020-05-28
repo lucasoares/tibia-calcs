@@ -34,11 +34,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
-
+  methods: {
+    ...mapGetters('settings', [
+      'getDarkTheme',
+    ]),
+  },
+  created() {
+    this.$vuetify.theme.dark = this.getDarkTheme();
+  },
   components: {
     NavBar,
   },
