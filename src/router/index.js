@@ -33,11 +33,25 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      title: 'Tibia Calcs',
+    },
   },
   {
     path: '/loot',
     name: 'Loot',
     component: Loot,
+    meta: {
+      title: 'Tibia Calcs - Party Hunt',
+    },
+  },
+  {
+    path: '*',
+    name: 'catchAll',
+    component: Home,
+    meta: {
+      title: 'Tibia Calcs',
+    },
   },
 ];
 
@@ -45,6 +59,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.afterEach((to) => {
+  // Use next tick to handle router history correctly
+  // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
+  Vue.nextTick(() => {
+    document.title = to.meta.title || 'Tibia Calcs';
+  });
 });
 
 export default router;

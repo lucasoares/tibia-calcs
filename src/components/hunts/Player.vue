@@ -43,7 +43,7 @@
         <v-icon color="grey">mdi-sword-cross</v-icon>
         <label class="stats-key">Damange </label>{{player.damage}}<br>
         <v-icon color="grey">mdi-hospital-box-outline</v-icon>
-        <label class="stats-key">Healing </label>{{player.damage}}
+        <label class="stats-key">Healing </label>{{player.healing}}
       </div>
     </v-card-text>
     <v-card-text>
