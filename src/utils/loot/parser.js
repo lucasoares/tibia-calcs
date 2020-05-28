@@ -62,13 +62,6 @@ function parse(partyHunt) {
       return;
     }
 
-    if (data.includes('Healing')) {
-      players = players.concat(currentPlayer);
-      newPlayer = true;
-
-      return;
-    }
-
     if (huntData || newPlayer) {
       currentPlayer = {};
       currentPlayer.imbuementCost = 0;
@@ -134,6 +127,11 @@ function parse(partyHunt) {
       if (data.includes('Healing')) {
         currentPlayer.healing = getNumber('Healing', data);
       }
+    }
+
+    if (data.includes('Healing')) {
+      players = players.concat(currentPlayer);
+      newPlayer = true;
     }
   });
 
