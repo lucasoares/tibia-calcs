@@ -29,7 +29,7 @@ export function updateHunt({ commit }, hunt) {
 
 export function toggleHunt({ commit }, hunt) {
   const huntToSend = hunt;
-  huntToSend.enabled = !huntToSend.enabled;
+  huntToSend.paid = !huntToSend.paid;
 
   commit('updateHunt', huntToSend);
 }

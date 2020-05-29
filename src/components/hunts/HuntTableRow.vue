@@ -55,9 +55,9 @@
     </td>
 
     <td class="text-left align-center justify-center">
-      <v-switch
-          :input-value="props.item.enabled"
-          @click.stop="toggleEnabled(props.item)"
+      <v-checkbox
+          :input-value="props.item.paid"
+          @click.stop="togglePaid(props.item)"
       />
     </td>
 
@@ -88,7 +88,7 @@ export default {
       if (balance < 0) return 'red';
       return 'yellow';
     },
-    toggleEnabled(hunt) {
+    togglePaid(hunt) {
       this.toggleHunt(hunt);
     },
     clickOnRemoveHunt(hunt) {

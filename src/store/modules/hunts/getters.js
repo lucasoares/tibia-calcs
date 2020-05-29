@@ -35,7 +35,7 @@ function getImbuementCost(hunt, perHour) {
 export default {
   getHuntResult: (state) => {
     const playerData = {};
-    state.hunts.filter((hunt) => hunt.enabled).forEach((hunt) => {
+    state.hunts.filter((hunt) => !hunt.paid).forEach((hunt) => {
       const players = {};
 
       hunt.players.forEach((player) => {

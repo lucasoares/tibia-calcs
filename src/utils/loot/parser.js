@@ -66,6 +66,7 @@ function parse(partyHunt) {
       currentPlayer = {};
       currentPlayer.imbuementCost = 0;
       currentPlayer.transferredTo = '';
+      currentPlayer.paid = false;
       currentPlayer.name = data.replace(' (Leader)', '');
       currentPlayer.leader = data.includes('(Leader)');
       huntData = false;
@@ -135,7 +136,7 @@ function parse(partyHunt) {
     }
   });
 
-  hunt.enabled = true;
+  hunt.paid = false;
   hunt.players = players;
   hunt.playersNumber = Object.keys(players).length;
   hunt.partyHunt = partyHunt;

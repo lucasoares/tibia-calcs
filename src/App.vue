@@ -24,11 +24,8 @@
 <template>
   <v-app>
     <NavBar/>
-
     <main class="main">
-      <v-content>
-        <router-view/>
-      </v-content>
+      <router-view/>
     </main>
   </v-app>
 </template>
@@ -64,7 +61,9 @@ export default {
     margin-bottom: 1rem;
   }
 
-  .main {
-    padding: 0.6rem 10% 0;
+  main {
+    padding: 2rem;
+    margin: 6rem 15% 0;
+    border-radius: 25px;
   }
 </style>

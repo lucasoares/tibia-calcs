@@ -38,7 +38,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import PlayerResult from '@/components/PlayerResult.vue';
+import PlayerResult from '@/components/hunts/PlayerResult.vue';
 
 export default {
   name: 'HuntsResult',

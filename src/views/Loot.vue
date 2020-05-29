@@ -40,7 +40,7 @@
     <div
         v-if="creating"
     >
-      <HuntsCreationForm
+      <HuntCreationForm
           @cancel="cancel"
           @close="cancel"
       />
@@ -48,21 +48,21 @@
 
     <HuntsTable/>
 
-    <HuntsResult/>
+    <HuntResult/>
   </div>
 </template>
 
 <script>
-import HuntsCreationForm from '@/components/hunts/HuntsCreationForm.vue';
+import HuntCreationForm from '@/components/hunts/HuntCreationForm.vue';
 import HuntsTable from '@/components/hunts/HuntsTable.vue';
-import HuntsResult from '@/components/hunts/HuntsResult.vue';
+import HuntResult from '@/components/hunts/HuntResult.vue';
 
 export default {
   name: 'Loot',
   components: {
     HuntsTable,
-    HuntsCreationForm,
-    HuntsResult,
+    HuntCreationForm,
+    HuntResult,
   },
   data: () => ({
     creating: false,

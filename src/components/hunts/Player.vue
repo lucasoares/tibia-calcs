@@ -35,7 +35,7 @@
       </p>
 
       <div class="text--primary">
-        <Balance :balance="player.balance"/>
+        <PlayerBalance :balance="player.balance"/>
         <v-icon color="grey">mdi-diamond-stone</v-icon>
         <label class="stats-key">Loot </label>{{player.loot}}<br>
         <v-icon color="grey">mdi-bottle-tonic-outline</v-icon>
@@ -55,7 +55,7 @@
       <v-select
           v-model="player.transferredTo"
           clearable
-          :items="hunt.players.map(p => p.name)"
+          :items="hunt.players.map(p => p.name).filter(name => name != player.name)"
           :menu-props="{ offsetY: true }"
           label="Has transferred loot to..."
       />
@@ -64,19 +64,12 @@
 </template>
 
 <script>
-import Balance from '@/components/Balance.vue';
+import PlayerBalance from '@/components/hunts/PlayerBalance.vue';
 
 export default {
   name: 'Player',
   components: {
-    Balance,
-  },
-  methods: {
-    getBalanceColor(balance) {
-      if (balance > 0) return 'green';
-      if (balance < 0) return 'red';
-      return 'yellow';
-    },
+    PlayerBalance,
   },
   data() {
     return {
@@ -88,6 +81,13 @@ export default {
   props: {
     player: {},
     hunt: {},
+  },
+  methods: {
+    getBalanceColor(balance) {
+      if (balance > 0) return 'green';
+      if (balance < 0) return 'red';
+      return 'yellow';
+    },
   },
 };
 </script>

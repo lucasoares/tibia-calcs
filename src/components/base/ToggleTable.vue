@@ -122,7 +122,7 @@ export default {
       }
     }
 
-    .v-input--switch {
+    .v-input--checkbox {
       height: 50%;
 
       .v-input__slot {

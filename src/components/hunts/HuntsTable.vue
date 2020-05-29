@@ -36,7 +36,7 @@
     </template>
 
     <template v-slot:creation-form="{ props, close }">
-      <HuntsEditionForm
+      <Hunt
           :initial-hunt="props.item"
           @cancel="close"
           @close="close"
@@ -47,15 +47,15 @@
 
 <script>
 import HuntTableRow from '@/components/hunts/HuntTableRow.vue';
-import ToggleTable from '@/components/ToggleTable.vue';
-import HuntsEditionForm from '@/components/hunts/HuntsEditionForm.vue';
+import ToggleTable from '@/components/base/ToggleTable.vue';
+import Hunt from '@/components/hunts/Hunt.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'HuntsTable',
   components: {
     HuntTableRow,
-    HuntsEditionForm,
+    Hunt,
     ToggleTable,
   },
   data() {
@@ -89,8 +89,8 @@ export default {
           text: 'Balance',
           value: 'balance',
         }, {
-          text: 'Enabled',
-          value: 'enabled',
+          text: 'Paid',
+          value: 'paid',
           width: '100px',
           sortable: false,
         },
