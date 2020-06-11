@@ -32,75 +32,156 @@ function getImbuementCost(hunt, perHour) {
   return perHour * (hunt.session / 1000 / 60 / 60);
 }
 
+function getSingleHuntResult(hunt) {
+  const result = [];
+  const players = {};
+
+  hunt.players.forEach((player) => {
+    players[player.name] = {
+      name: player.name,
+      loot: player.loot,
+      balance: player.balance,
+      transferredTo: player.transferredTo,
+      imbuementCost: player.imbuementCost,
+    };
+  });
+
+  // Compute transferred to
+  Object.keys(players).forEach((name) => {
+    const player = players[name];
+
+    if (player.transferredTo) {
+      const unluckyPlayerWithTonsOfLootToSell = players[player.transferredTo];
+
+      unluckyPlayerWithTonsOfLootToSell.balance += player.loot;
+      player.balance -= player.loot;
+    }
+  });
+
+  let huntBalance = hunt.balance;
+  // Compute imbuements costs
+  Object.keys(players).forEach((name) => {
+    const player = players[name];
+
+    if (player.imbuementCost) {
+      const playerImbuementCost = getImbuementCost(hunt, player.imbuementCost);
+
+      huntBalance -= playerImbuementCost;
+      player.balance -= playerImbuementCost;
+    }
+  });
+
+  Object.keys(players).forEach((name) => {
+    const player = players[name];
+
+    const playerBalance = {
+      balance: Math.round(huntBalance / Object.keys(players).length - player.balance),
+      name: player.name,
+    };
+
+    result.push(playerBalance);
+  });
+
+  return result;
+}
+
 export default {
   getHuntResult: (state) => {
-    const playerData = {};
+    const playersFinalBalance = {};
     state.hunts.filter((hunt) => !hunt.paid).forEach((hunt) => {
-      const players = {};
+      const huntResult = getSingleHuntResult(hunt);
 
-      hunt.players.forEach((player) => {
-        players[player.name] = {
-          name: player.name,
-          loot: player.loot,
-          balance: player.balance,
-          transferredTo: player.transferredTo,
-          imbuementCost: player.imbuementCost,
-        };
-      });
-
-      // Compute transferred to
-      Object.keys(players).forEach((name) => {
-        const player = players[name];
-
-        if (player.transferredTo) {
-          const unluckyPlayerWithTonsOfLootToSell = players[player.transferredTo];
-
-          unluckyPlayerWithTonsOfLootToSell.balance += player.loot;
-          player.balance -= player.loot;
-        }
-      });
-
-      let huntBalance = hunt.balance;
-      // Compute imbuements costs
-      Object.keys(players).forEach((name) => {
-        const player = players[name];
-
-        if (player.imbuementCost) {
-          const playerImbuementCost = getImbuementCost(hunt, player.imbuementCost);
-
-          huntBalance -= playerImbuementCost;
-          player.balance -= playerImbuementCost;
-        }
-      });
-
-      Object.keys(players).forEach((name) => {
-        const player = players[name];
-
-        if (!(player.name in playerData)) {
-          playerData[player.name] = {
-            name: player.name,
+      huntResult.forEach((result) => {
+        if (!(result.name in playersFinalBalance)) {
+          playersFinalBalance[result.name] = {
+            name: result.name,
             balance: 0,
           };
         }
 
-        const result = {
-          balance: huntBalance / Object.keys(players).length - player.balance,
-          name: player.name,
-        };
-
-        playerData[player.name] = mergePlayerData(playerData[player.name], result);
+        playersFinalBalance[result.name] = mergePlayerData(
+          playersFinalBalance[result.name],
+          result,
+        );
       });
     });
 
     const result = [];
 
-    Object.keys(playerData).forEach((name) => {
+    Object.keys(playersFinalBalance).forEach((name) => {
       result.push({
         name,
-        balance: playerData[name].balance,
+        balance: playersFinalBalance[name].balance,
       });
     });
 
+    return result;
+  },
+  getTransferSuggestion: (state) => {
+    const huntTransfers = {};
+
+    state.hunts.filter((hunt) => !hunt.paid).forEach((hunt) => {
+      const huntResult = getSingleHuntResult(hunt);
+
+      const positivePlayers = [];
+      const negativePlayers = [];
+
+      huntResult.forEach((player) => {
+        if (player.balance < 0) {
+          positivePlayers.push(player);
+        }
+
+        if (player.balance > 0) {
+          negativePlayers.push(player);
+        }
+      });
+
+      for (let p = 0; p < positivePlayers.length; p += 1) {
+        const positivePlayer = positivePlayers[p];
+        const positivePlayerName = positivePlayer.name;
+
+        for (let n = 0; n < negativePlayers.length; n += 1) {
+          const negativePlayer = negativePlayers[n];
+          const negativePlayerName = negativePlayer.name;
+
+          const positivePlayerBalance = Math.abs(positivePlayer.balance);
+
+          if (positivePlayerBalance !== 0 && negativePlayer.balance !== 0) {
+            let amount = 0;
+            if (positivePlayerBalance >= negativePlayer.balance) {
+              amount = negativePlayer.balance;
+            } else {
+              amount = positivePlayerBalance;
+            }
+
+            if (!(positivePlayerName in huntTransfers)) {
+              huntTransfers[positivePlayerName] = {};
+            }
+
+            if (!(negativePlayerName in huntTransfers[positivePlayerName])) {
+              huntTransfers[positivePlayerName][negativePlayerName] = 0;
+            }
+
+            huntTransfers[positivePlayerName][negativePlayerName] += amount;
+            positivePlayer.balance += amount;
+            negativePlayer.balance -= amount;
+          }
+        }
+      }
+    });
+
+    const result = [];
+    let id = 0;
+    Object.keys(huntTransfers).forEach((from) => {
+      Object.keys(huntTransfers[from]).forEach((to) => {
+        result.push({
+          id: id += 1,
+          from,
+          to,
+          amount: huntTransfers[from][to],
+        });
+      });
+    });
     return result;
   },
 };

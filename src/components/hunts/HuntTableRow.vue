@@ -51,7 +51,15 @@
     </td>
 
     <td class="text-left">
-      <v-chip :color="getBalanceColor(props.item.balance)" dark>{{ props.item.balance }}</v-chip>
+      <v-chip :color="getBalanceColor(props.item.balance)" dark>
+        {{ props.item.balance }}
+      </v-chip>
+    </td>
+
+    <td class="text-left">
+      <v-chip :color="getBalanceColor(props.item.balance)" dark>
+        {{props.item.profit}}
+      </v-chip>
     </td>
 
     <td class="text-left align-center justify-center">

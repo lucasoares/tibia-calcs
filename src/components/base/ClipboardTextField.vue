@@ -1,4 +1,4 @@
-/*
+<!--
 ===========================================================================
   Tibia Calcs GPL Source Code
   Copyright (C) 2020 Lucas Soares de Miranda
@@ -19,37 +19,61 @@
 
   License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
 ===========================================================================
-*/
+-->
 
+<template>
+  <v-text-field
+      ref='input'
+      :label='label'
+      :textarea='textarea'
+      :readonly="readonly"
+      prepend-inner-icon='mdi-content-copy'
+      @click:prepend-inner='copy'
+      v-model='value'
+  />
+</template>
+
+<script>
 export default {
-  createHunt: (state, hunt) => {
-    state.identifier += 1;
-    const { identifier } = state;
-
-    const newHunt = hunt;
-    newHunt.id = identifier;
-
-    state.hunts = [newHunt].concat(state.hunts);
+  name: 'ClipboardTextField',
+  props: {
+    defaultValue: {
+      type: String,
+      required: false,
+    },
+    label: {
+      type: String,
+      required: false,
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    textarea: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
-  deleteHunt: (state, huntToDelete) => {
-    state.hunts = state.hunts.filter((hunt) => hunt.id !== huntToDelete.id);
+  data() {
+    return {
+      value: this.defaultValue,
+    };
   },
-  updateHunt: (state, huntToUpdate) => {
-    const { id } = huntToUpdate;
-    state.hunts = state.hunts.map((hunt) => {
-      if (hunt.id === id) {
-        return huntToUpdate;
-      }
-      return hunt;
-    });
-  },
-  updateStateVersion: (state) => {
-    for (let i = 0; i < state.hunts.length; i += 1) {
-      const hunt = state.hunts[i];
-
-      if (!hunt.profit) {
-        hunt.profit = (Math.round(hunt.balance / hunt.playersNumber));
-      }
-    }
+  methods: {
+    copy() {
+      const { input } = this.$refs;
+      input.focus();
+      document.execCommand('selectAll');
+      document.execCommand('copy');
+    },
   },
 };
+</script>
+
+<style>
+  .v-icon {
+    font-size: 20px !important;
+  }
+</style>

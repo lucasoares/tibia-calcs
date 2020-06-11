@@ -24,34 +24,89 @@
 <template>
   <v-container fluid>
     <h1>Results</h1>
-    <br>
-    <v-container grid-list-xl>
-      <v-layout row wrap>
-        <v-flex xs4 sm4 md3 x20 v-for="player in getHuntResult" :key="player.name">
-          <h3>{{player.name}}</h3>
-          <PlayerResult :result="player.balance"/>
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <h3 v-if="!containsPlayers(getHuntResult)">Everything Settled!</h3>
+
+    <accordion v-if="containsPlayers(getHuntResult)">
+      <accordion-item :name="`Transfer Suggestion`">
+        <template slot="accordion-content">
+          <v-container grid-list-xl>
+            <v-layout row wrap>
+              <v-flex md6 v-for="transfer in getTransferSuggestion" :key="transfer.id">
+                <TransferSuggestion
+                    :fromPlayer="transfer.from"
+                    :toPlayer="transfer.to"
+                    :amount="transfer.amount"/>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </template>
+      </accordion-item>
+
+      <accordion-item :name="`Players Balance`">
+        <template slot="accordion-content">
+          <v-container>
+            <v-row>
+              <v-col v-for="n in 2" :key="n">
+                <v-row>
+                  <v-col cols="4" :class="'mt-3'"
+                         v-for="player in filterPlayers(getHuntResult, n)"
+                         :key="player.name">
+                    <PlayerResult :player="player"/>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
+        </template>
+      </accordion-item>
+    </accordion>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import PlayerResult from '@/components/hunts/PlayerResult.vue';
+import Accordion from '@/components/base/Accordion.vue';
+import AccordionItem from '@/components/base/AccordionItem.vue';
+import TransferSuggestion from '@/components/hunts/TransferSuggestion.vue';
 
 export default {
   name: 'HuntsResult',
   components: {
     PlayerResult,
+    Accordion,
+    AccordionItem,
+    TransferSuggestion,
   },
   computed: {
     ...mapGetters('hunts', [
       'getHuntResult',
+      'getTransferSuggestion',
     ]),
+  },
+  methods: {
+    containsPlayers(players) {
+      return this.filterPlayers(players, 1).length > 0 || this.filterPlayers(players, 2).length > 0;
+    },
+    filterPlayers(players, n) {
+      return players.filter((player) => {
+        if (n === 1 && player.balance > 0) {
+          return true;
+        }
+
+        if (n === 2 && player.balance < 0) {
+          return true;
+        }
+
+        return false;
+      });
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
+  .players-balance {
+    text-align: center;
+  }
 </style>

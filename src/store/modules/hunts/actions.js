@@ -45,3 +45,7 @@ export function removeHunt({ commit }, hunt) {
 
   return hunt;
 }
+
+export function updateStateVersion({ commit }) {
+  commit('updateStateVersion');
+}

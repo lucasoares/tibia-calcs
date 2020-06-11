@@ -23,7 +23,7 @@
 
 <template>
   <div clasa="balance">
-    <v-icon color="grey">mdi-swap-vertical</v-icon>
+    <v-icon class="stats-icon" color="grey">mdi-swap-vertical</v-icon>
     <label class="stats-key">Balance </label>
     <span
         :class="{

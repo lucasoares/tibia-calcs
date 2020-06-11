@@ -1,4 +1,4 @@
-/*
+<!--
 ===========================================================================
   Tibia Calcs GPL Source Code
   Copyright (C) 2020 Lucas Soares de Miranda
@@ -19,37 +19,39 @@
 
   License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
 ===========================================================================
-*/
+-->
 
+<template>
+  <ul class="accordion">
+    <slot></slot>
+  </ul>
+</template>
+
+<script>
 export default {
-  createHunt: (state, hunt) => {
-    state.identifier += 1;
-    const { identifier } = state;
-
-    const newHunt = hunt;
-    newHunt.id = identifier;
-
-    state.hunts = [newHunt].concat(state.hunts);
+  props: {},
+  data() {
+    return {
+      Accordion: {
+        count: 0,
+        active: 1,
+      },
+    };
   },
-  deleteHunt: (state, huntToDelete) => {
-    state.hunts = state.hunts.filter((hunt) => hunt.id !== huntToDelete.id);
-  },
-  updateHunt: (state, huntToUpdate) => {
-    const { id } = huntToUpdate;
-    state.hunts = state.hunts.map((hunt) => {
-      if (hunt.id === id) {
-        return huntToUpdate;
-      }
-      return hunt;
-    });
-  },
-  updateStateVersion: (state) => {
-    for (let i = 0; i < state.hunts.length; i += 1) {
-      const hunt = state.hunts[i];
-
-      if (!hunt.profit) {
-        hunt.profit = (Math.round(hunt.balance / hunt.playersNumber));
-      }
-    }
+  provide() {
+    return { Accordion: this.Accordion };
   },
 };
+</script>
+
+<style lang="scss" scoped>
+  .accordion {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &__item:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

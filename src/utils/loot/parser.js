@@ -140,6 +140,7 @@ function parse(partyHunt) {
   hunt.players = players;
   hunt.playersNumber = Object.keys(players).length;
   hunt.partyHunt = partyHunt;
+  hunt.profit = Math.round(hunt.balance / hunt.playersNumber);
 
   return hunt;
 }

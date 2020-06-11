@@ -24,7 +24,7 @@
 <template>
   <div class="home">
     <h1 id="main-title">
-      Tibia Calc
+      Tibia Calcs
     </h1>
     <p class="description">
       🛠️ Useful calculators for Tibia MMO

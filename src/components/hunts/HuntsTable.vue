@@ -49,7 +49,7 @@
 import HuntTableRow from '@/components/hunts/HuntTableRow.vue';
 import ToggleTable from '@/components/base/ToggleTable.vue';
 import Hunt from '@/components/hunts/Hunt.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'HuntsTable',
@@ -89,6 +89,9 @@ export default {
           text: 'Balance',
           value: 'balance',
         }, {
+          text: 'Profit/Player',
+          value: 'profit',
+        }, {
           text: 'Paid',
           value: 'paid',
           width: '100px',
@@ -106,8 +109,13 @@ export default {
       'hunts',
     ]),
   },
-
+  created() {
+    this.updateStateVersion();
+  },
   methods: {
+    ...mapActions('hunts', [
+      'updateStateVersion',
+    ]),
     expandTable(props) {
       this.$emit('expando', props);
       props.expand(!props.isExpanded);

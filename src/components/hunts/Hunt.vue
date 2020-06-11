@@ -41,7 +41,7 @@
 
     <v-container grid-list-xl>
       <v-layout row wrap>
-        <v-flex xs4 sm4 md3 x20 v-for="player in currentHunt.players" :key="player.name">
+        <v-flex md3 v-for="player in currentHunt.players" :key="player.name">
           <Player :player="player" :hunt="currentHunt"/>
         </v-flex>
       </v-layout>

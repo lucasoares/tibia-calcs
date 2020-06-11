@@ -22,7 +22,7 @@
 -->
 
 <template>
-  <v-card raised class="mx-auto">
+  <v-card raised class="card">
     <v-card-text>
       <p class="display-1 text--primary">
         <v-tooltip top>
@@ -36,13 +36,13 @@
 
       <div class="text--primary">
         <PlayerBalance :balance="player.balance"/>
-        <v-icon color="grey">mdi-diamond-stone</v-icon>
+        <v-icon class="stats-icon" color="grey">mdi-diamond-stone</v-icon>
         <label class="stats-key">Loot </label>{{player.loot}}<br>
-        <v-icon color="grey">mdi-bottle-tonic-outline</v-icon>
+        <v-icon class="stats-icon" color="grey">mdi-bottle-tonic-outline</v-icon>
         <label class="stats-key">Supplies </label>{{player.supplies}}<br>
-        <v-icon color="grey">mdi-sword-cross</v-icon>
+        <v-icon class="stats-icon" color="grey">mdi-sword-cross</v-icon>
         <label class="stats-key">Damange </label>{{player.damage}}<br>
-        <v-icon color="grey">mdi-hospital-box-outline</v-icon>
+        <v-icon class="stats-icon" color="grey">mdi-hospital-box-outline</v-icon>
         <label class="stats-key">Healing </label>{{player.healing}}
       </div>
     </v-card-text>
@@ -93,6 +93,10 @@ export default {
 </script>
 
 <style>
+  i.stats-icon {
+    margin-right: 4px;
+  }
+
   i.mdi-shield-star {
     margin-bottom: 5px;
     margin-left: 5px;
@@ -100,6 +104,5 @@ export default {
 
   label.stats-key {
     color: grey;
-    padding-left: 4px;
   }
 </style>

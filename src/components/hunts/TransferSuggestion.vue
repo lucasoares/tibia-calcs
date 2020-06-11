@@ -22,39 +22,58 @@
 -->
 
 <template>
-  <div class="player-result">
-    <b>{{player.name}}</b>
-    <br>
-    <label v-if="player.balance > 0" class="stats-key">needs to receive </label>
-    <label v-if="player.balance < 0" class="stats-key">owes </label>
-    <label v-if="player.balance === 0" class="stats-key">everything settled </label>
-    <span v-if="player.balance != 0"
-          :class="{
-              'red-color' : player.balance < 0,
-              'green-color' : player.balance > 0,
-        }">
-          {{player.balance | abs }}</span><br>
+  <div class="transfer-suggestion">
+    <p>
+      <b>{{fromPlayer}}</b> should transfer
+      <span class="green-color">{{amount | abs}}</span>
+      to <b>{{toPlayer}}</b>
+      <ClipboardTextField
+          class="transfer"
+          readonly
+          :defaultValue="`transfer ${Math.abs(amount)} to ${toPlayer}`"
+      />
+      <ClipboardTextField
+          class="transfer"
+          readonly
+          :defaultValue="`withdraw ${Math.abs(amount)}`"
+      />
+    </p>
   </div>
 </template>
 
 <script>
+import ClipboardTextField from '@/components/base/ClipboardTextField.vue';
+
 export default {
-  name: 'PlayerResult',
+  name: 'TransferSuggestion',
+  components: { ClipboardTextField },
   props: {
-    player: {
-      default: () => {
-      },
+    fromPlayer: {},
+    toPlayer: {},
+    amount: {},
+  },
+  methods: {
+    copy() {
+      const { input } = this.$refs;
+      input.focus();
+      document.execCommand('selectAll');
+      this.copied = document.execCommand('copy');
     },
   },
 };
 </script>
 
 <style>
-  .red-color {
-    color: red;
+  .transfer.v-text-field > .v-input__control > .v-input__slot:before,
+  .transfer.v-text-field > .v-input__control > .v-input__slot:after {
+    width: 0px;
   }
 
-  .green-color {
-    color: green;
+  .transfer.v-text-field {
+    padding-top: 0px;
+  }
+
+  .transfer.v-text-field .v-input__slot {
+    margin-bottom: 0px;
   }
 </style>
