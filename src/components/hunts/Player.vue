@@ -41,7 +41,7 @@
         <v-icon class="stats-icon" color="grey">mdi-bottle-tonic-outline</v-icon>
         <label class="stats-key">Supplies </label>{{player.supplies}}<br>
         <v-icon class="stats-icon" color="grey">mdi-sword-cross</v-icon>
-        <label class="stats-key">Damange </label>{{player.damage}}<br>
+        <label class="stats-key">Damage </label>{{player.damage}}<br>
         <v-icon class="stats-icon" color="grey">mdi-hospital-box-outline</v-icon>
         <label class="stats-key">Healing </label>{{player.healing}}
       </div>
