@@ -32,6 +32,12 @@
     <div class="links">
       <nav class="nav-links">
         <div class="nav-item">
+          <router-link class="nav-link" to="/imbuements">
+            Imbuements
+          </router-link>
+        </div>
+
+        <div class="nav-item">
           <router-link class="nav-link" to="/loot">
             Party Hunt Loot
           </router-link>

@@ -21,29 +21,11 @@
 ===========================================================================
 */
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import VuexPersist from 'vuex-persist';
 
-import hunts from './modules/hunts';
-import settings from './modules/settings';
-import imbuements from './modules/imbuements';
+export function updateImbuements({ commit }, imbuements) {
+  commit('updateImbuements', imbuements);
+}
 
-const vuexPersist = new VuexPersist({
-  key: 'store',
-  storage: window.localStorage,
-});
+export function doNothing() {
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {
-    hunts,
-    settings,
-    imbuements,
-  },
-  plugins: [vuexPersist.plugin],
-});
+}

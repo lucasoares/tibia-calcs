@@ -23,6 +23,7 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Imbuements from '../views/Imbuements.vue';
 import Loot from '../views/Loot.vue';
 import Home from '../views/Home.vue';
 
@@ -43,6 +44,14 @@ const routes = [
     component: Loot,
     meta: {
       title: 'Tibia Calcs - Party Hunt',
+    },
+  },
+  {
+    path: '/imbuements',
+    name: 'Imbuements',
+    component: Imbuements,
+    meta: {
+      title: 'Tibia Calcs - Imbuements',
     },
   },
   {

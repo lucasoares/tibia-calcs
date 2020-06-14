@@ -1,4 +1,4 @@
-/*
+<!--
 ===========================================================================
   Tibia Calcs GPL Source Code
   Copyright (C) 2020 Lucas Soares de Miranda
@@ -19,31 +19,48 @@
 
   License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
 ===========================================================================
-*/
+-->
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import VuexPersist from 'vuex-persist';
+<template>
+  <div class="material-image">
+    <v-tooltip top>
+      <template v-slot:activator="{ on }">
+        <a :href="'https://tibia.fandom.com/wiki/' + normalizedMaterialName" target="_blank">
+          <img :src="materialImage"
+               width="32"
+               height="32"
+               v-on="on"/>
+        </a>
+      </template>
+      <span>View on Tibia Fandom</span>
+    </v-tooltip>
+  </div>
+</template>
+<script>
 
-import hunts from './modules/hunts';
-import settings from './modules/settings';
-import imbuements from './modules/imbuements';
-
-const vuexPersist = new VuexPersist({
-  key: 'store',
-  storage: window.localStorage,
-});
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {
-    hunts,
-    settings,
-    imbuements,
+export default {
+  name: 'ImbuementMaterialImage',
+  props: {
+    value: {
+      type: Object,
+    },
   },
-  plugins: [vuexPersist.plugin],
-});
+  computed: {
+    normalizedMaterialName() {
+      return this.value.name.replace(/ /g, '_');
+    },
+    materialImage() {
+      return `/images/imbuements/materials/${this.normalizedMaterialName}.gif`;
+    },
+  },
+  methods: {},
+};
+</script>
+
+<style scoped>
+  .material-image {
+    align-self: flex-end;
+    vertical-align: middle;
+    display: inline-flex;
+  }
+</style>

@@ -21,29 +21,11 @@
 ===========================================================================
 */
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import VuexPersist from 'vuex-persist';
-
-import hunts from './modules/hunts';
-import settings from './modules/settings';
-import imbuements from './modules/imbuements';
-
-const vuexPersist = new VuexPersist({
-  key: 'store',
-  storage: window.localStorage,
-});
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {
-    hunts,
-    settings,
-    imbuements,
+export default {
+  getImbuements(state) {
+    return state.imbuements;
   },
-  plugins: [vuexPersist.plugin],
-});
+  getGoldToken(state) {
+    return state.goldToken;
+  },
+};

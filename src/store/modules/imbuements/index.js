@@ -21,29 +21,15 @@
 ===========================================================================
 */
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import VuexPersist from 'vuex-persist';
+import * as actions from './actions';
+import mutations from './mutations';
+import state from './state';
+import getters from './getters';
 
-import hunts from './modules/hunts';
-import settings from './modules/settings';
-import imbuements from './modules/imbuements';
-
-const vuexPersist = new VuexPersist({
-  key: 'store',
-  storage: window.localStorage,
-});
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {
-    hunts,
-    settings,
-    imbuements,
-  },
-  plugins: [vuexPersist.plugin],
-});
+export default {
+  namespaced: true,
+  state,
+  actions,
+  mutations,
+  getters,
+};

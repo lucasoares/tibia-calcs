@@ -63,7 +63,7 @@ export default {
 
   main {
     padding: 2rem;
-    margin: 6rem 15% 0;
+    margin: 6rem 10% 0;
     border-radius: 25px;
   }
 </style>
