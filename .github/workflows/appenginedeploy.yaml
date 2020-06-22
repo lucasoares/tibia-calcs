@@ -1,4 +1,4 @@
-# ===========================================================================
+#===========================================================================
 #  Tibia Calcs GPL Source Code
 #  Copyright (C) 2020 Lucas Soares de Miranda
 #  Copyright (C) 2020 Luiz Claudio Soares de Miranda
@@ -19,7 +19,7 @@
 #  License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
 #===========================================================================
 
-name: App Engine Deploy
+name: Front-End App Engine Deploy
 
 on:
   push:
@@ -34,17 +34,23 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '290.0.1'
-        project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCLOUD_AUTH }}
-        export_default_credentials: true
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run build --if-present
-    - run: gcloud app deploy app.yaml
+      - uses: actions/checkout@v2
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          export_default_credentials: true
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm install
+        working-directory: frontend
+      - name: Build
+        run: npm run build --if-present
+        working-directory: frontend
+      - name: Deploy
+        run: gcloud app deploy app.yaml
+        working-directory: frontend

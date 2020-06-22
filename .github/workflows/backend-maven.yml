@@ -19,32 +19,29 @@
 #  License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
 #===========================================================================
 
-name: Front-End Node.js CI
+name: Backend Maven Test
 
 on:
   pull_request:
     branches: [ master ]
 
 jobs:
-  build:
+  test:
+    name: Maven Test
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Set up JDK 14
+        uses: actions/setup-java@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: NPM CI
-        run: npm ci
-        working-directory: frontend
-      - name: Build
-        run: npm run build --if-present
-        working-directory: frontend
+          java-version: 14
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Test
-        run: npm test
-        working-directory: frontend
+        run: mvn clean test
+        working-directory: backend

@@ -1,36 +1,19 @@
 ![Build](https://github.com/luizcsm/tibia-calc/workflows/Node.js%20CI/badge.svg?branch=master)
 ![App Engine Deploy](https://github.com/lucasoares/tibia-calc/workflows/App%20Engine%20Deploy/badge.svg)
 
-# tibia-calc
-Useful calculators for Tibia MMO l
+# tibia-calcs
 
-## Project setup
-```
-npm install
-```
+Useful calculators and statistics for Tibia MMO.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Structure
 
-### Compiles and minifies for production
-```
-npm run build
-```
+This project has two main directories:
+- [frontend](frontend)
+- [backend](backend)
 
-### Run your unit tests
-```
-npm run test:unit
-```
+Our frontend uses [Vue JS Framework](https://vuejs.org/).
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Our backend uses [Spring Framework](https://spring.io/) with Java 14.
 
 ### Licensing
 
