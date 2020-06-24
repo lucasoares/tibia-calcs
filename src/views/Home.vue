@@ -27,7 +27,7 @@
       Tibia Calcs
     </h1>
     <p class="description">
-      🛠️ Useful calculators for Tibia MMO
+      🛠️ Useful calculators for Tibia MMORPG
     </p>
   </div>
 </template>

@@ -42,7 +42,7 @@
         </template>
       </accordion-item>
 
-      <accordion-item :name="`Players Balance`">
+      <accordion-item :name="`Players Balances`">
         <template slot="accordion-content">
           <v-container>
             <v-row>

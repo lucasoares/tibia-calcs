@@ -26,8 +26,8 @@
     <h1 id="main-title">
       Party Hunt Loot
     </h1>
-    <p>Here you can create and manage party hunts.</p>
-    <p>Click at the create button and paste the party hunt analyzer.</p>
+    <p>Create and manage your party hunts.</p>
+    <p>Click at the create button and paste the Session Data from the Party Hunt Analyzer.</p>
 
     <v-btn
         v-show="!creating"
