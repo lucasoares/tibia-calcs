@@ -23,13 +23,14 @@
 
 <template>
   <v-text-field
+      v-bind:value='value'
+      v-on:input='$emit("v-text-field", $event.target.value)'
       ref='input'
       :label='label'
       :textarea='textarea'
       :readonly="readonly"
       prepend-inner-icon='mdi-content-copy'
       @click:prepend-inner='copy'
-      v-model='value'
   />
 </template>
 
@@ -37,7 +38,7 @@
 export default {
   name: 'ClipboardTextField',
   props: {
-    defaultValue: {
+    value: {
       type: String,
       required: false,
     },
@@ -55,11 +56,6 @@ export default {
       required: false,
       default: false,
     },
-  },
-  data() {
-    return {
-      value: this.defaultValue,
-    };
   },
   methods: {
     copy() {

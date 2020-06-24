@@ -30,12 +30,12 @@
       <ClipboardTextField
           class="transfer"
           readonly
-          :defaultValue="`transfer ${Math.abs(amount)} to ${toPlayer}`"
+          v-model="transferText"
       />
       <ClipboardTextField
           class="transfer"
           readonly
-          :defaultValue="`withdraw ${Math.abs(amount)}`"
+          v-model="withdrawText"
       />
     </p>
   </div>
@@ -52,12 +52,12 @@ export default {
     toPlayer: {},
     amount: {},
   },
-  methods: {
-    copy() {
-      const { input } = this.$refs;
-      input.focus();
-      document.execCommand('selectAll');
-      this.copied = document.execCommand('copy');
+  computed: {
+    transferText() {
+      return `transfer ${Math.abs(this.amount)} to ${this.toPlayer}`;
+    },
+    withdrawText() {
+      return `withdraw ${Math.abs(this.amount)}`;
     },
   },
 };
