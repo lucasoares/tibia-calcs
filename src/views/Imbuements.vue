@@ -61,7 +61,7 @@
           <v-checkbox v-model="chance" label="100% Chance"></v-checkbox>
         </v-col>
         <v-col cols="4">
-          <h3>Materials Price</h3>
+          <h3>Materials Prices</h3>
 
           <v-row dense>
             <v-col
@@ -106,7 +106,7 @@
           <v-container class="imbuements-results">
             <v-row>
               <v-col cols="12" v-if="imbuements[selected].goldToken">
-                <b>Better choice:</b>
+                <b>Best choice:</b>
 
                 <span v-if="totalMaterialsPrice < goldTokenTotalPrice">
                   <ImbuementMaterialImage
