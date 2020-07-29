@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 @Getter
-public class WorldOnlinePlayersEvent extends ApplicationEvent {
+public class OnlinePlayersEvent extends ApplicationEvent {
 
   private final transient WorldResponse worldResponse;
 
@@ -15,10 +15,9 @@ public class WorldOnlinePlayersEvent extends ApplicationEvent {
    * @param source the object on which the event initially occurred or with which the event is
    * associated (never {@code null})
    */
-  public WorldOnlinePlayersEvent(Object source, WorldResponse worldResponse) {
+  public OnlinePlayersEvent(Object source, WorldResponse worldResponse) {
     super(source);
 
     this.worldResponse = worldResponse;
   }
-
 }

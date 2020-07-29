@@ -27,6 +27,7 @@ import com.tibiacalcs.processor.data.world.WorldUpdater;
 import com.tibiacalcs.tibiadata.api.world.WorldResponse;
 import com.tibiacalcs.tibiadata.api.world.WorldsApi;
 import com.tibiacalcs.tibiadata.api.world.entities.OnlinePlayer;
+import com.tibiacalcs.tibiadata.api.world.entities.WorldInformation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.event.EventListener;
@@ -47,6 +49,7 @@ import org.springframework.stereotype.Component;
 @Log4j2
 @Component
 @RequiredArgsConstructor
+@EnableConfigurationProperties(OnlinePlayersProperties.class)
 public class OnlinePlayersProcessorStarter implements ApplicationEventPublisherAware {
 
   private final WorldsApi worldsApi;
@@ -54,6 +57,7 @@ public class OnlinePlayersProcessorStarter implements ApplicationEventPublisherA
   private final EventRepository eventRepository;
   private final MongoTemplate mongoTemplate;
   private final WorldUpdater worldUpdater;
+  private final OnlinePlayersProperties onlinePlayersProperties;
   private ApplicationEventPublisher publisher;
 
   // Cache
@@ -61,7 +65,7 @@ public class OnlinePlayersProcessorStarter implements ApplicationEventPublisherA
 
   @Scheduled(fixedDelay = 20 * 1000)
   public void startOnlinePlayersProcessor() {
-    if (worldUpdater.getWorldList().isEmpty()) {
+    if (this.worldUpdater.getWorldList().isEmpty()) {
       log.debug("0 worlds to collect player online information.");
 
       return;
@@ -71,11 +75,12 @@ public class OnlinePlayersProcessorStarter implements ApplicationEventPublisherA
 
     try {
       this.worldUpdater.getWorldList().parallelStream()
+          .filter(this::filterWorld)
           .map(world -> this.worldsApi.world(world.getName()))
           .filter(Objects::nonNull)
           .filter(WorldResponse::isValid)
           .filter(this::cacheMiss)
-          .map(worldResponse -> new WorldOnlinePlayersEvent(this, worldResponse))
+          .map(worldResponse -> new OnlinePlayersEvent(this, worldResponse))
           .forEach(this.publisher::publishEvent);
     } catch (Exception e) {
       log.error("Error running online players starter.", e);
@@ -85,9 +90,15 @@ public class OnlinePlayersProcessorStarter implements ApplicationEventPublisherA
     }
   }
 
+  private boolean filterWorld(WorldInformation world) {
+    return this.onlinePlayersProperties.getWorlds().isEmpty()
+        || this.onlinePlayersProperties
+        .getWorlds().contains(world.getName());
+  }
+
   @Async
   @EventListener
-  public void onTicketUpdatedEvent(WorldOnlinePlayersEvent worldOnlinePlayers) {
+  public void onWorldEvent(OnlinePlayersEvent worldOnlinePlayers) {
     WorldResponse response = worldOnlinePlayers.getWorldResponse();
 
     log.debug("Starting online players processor for {}.",

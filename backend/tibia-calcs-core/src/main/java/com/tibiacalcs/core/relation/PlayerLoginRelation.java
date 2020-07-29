@@ -27,25 +27,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Accessors(chain = true)
 @Document(collection = "player_login_relations")
-public class PlayerLoginRelation implements Comparable<PlayerLoginRelation> {
+public class PlayerLoginRelation {
+
   private String from;
   private String to;
 
-  private int count;
-  private int consecutiveCount;
-  private long overlapTimeDuration;
-
-  public void overlap(long time) {
-    this.count++;
-    this.overlapTimeDuration += time;
-  }
-
-  public void consecutiveLogin() {
-    this.consecutiveCount++;
-  }
-
-  @Override
-  public int compareTo(PlayerLoginRelation o) {
-    return Long.compare(o.overlapTimeDuration, this.overlapTimeDuration);
-  }
+  private long consecutiveCount;
+  private long overlapCount;
 }

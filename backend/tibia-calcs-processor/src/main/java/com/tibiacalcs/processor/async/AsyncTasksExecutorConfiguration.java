@@ -27,7 +27,7 @@ public class AsyncTasksExecutorConfiguration {
     this.executor.setWaitForTasksToCompleteOnShutdown(true);
     this.executor.initialize();
 
-    return executor;
+    return this.executor;
   }
 
   @Scheduled(initialDelay = 20 * 1000, fixedRate = 10 * 1000)

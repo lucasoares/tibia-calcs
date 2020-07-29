@@ -76,9 +76,9 @@ public class OnlinePlayersProcessor extends Task {
   }
 
   protected void processImpl() {
-    List<OnlinePlayer> onlinePlayers = response.getWorld().getPlayersOnline();
+    List<OnlinePlayer> onlinePlayers = this.response.getWorld().getPlayersOnline();
 
-    String worldName = response.getWorld().getWorldInformation().getName();
+    String worldName = this.response.getWorld().getWorldInformation().getName();
 
     this.playersOnlineNowByName =
         onlinePlayers.stream().collect(Collectors.toMap(OnlinePlayer::getName, item -> item));
@@ -141,8 +141,9 @@ public class OnlinePlayersProcessor extends Task {
       OnlinePlayer newPlayer = entry.getValue();
 
       if (!this.databasePlayers.containsKey(name)) {
-        this.newPlayers.add(Player.fromOnline(response.getWorld().getWorldInformation().getName(),
-            response.getInformation().getLastUpdated(), newPlayer));
+        this.newPlayers.add(Player.fromOnline(
+            this.response.getWorld().getWorldInformation().getName(),
+            this.response.getInformation().getLastUpdated(), newPlayer));
 
         continue;
       }
@@ -162,7 +163,7 @@ public class OnlinePlayersProcessor extends Task {
 
       if (newLvl > oldLvl) {
         this.events.add(
-            new UpLevelEvent(response.getInformation().getLastUpdated(), newPlayer.getName(),
+            new UpLevelEvent(this.response.getInformation().getLastUpdated(), newPlayer.getName(),
                 oldLvl, newLvl));
       }
 
@@ -192,7 +193,7 @@ public class OnlinePlayersProcessor extends Task {
       Player player = entry.getValue();
 
       if (player.isOnline() && !this.playersOnlineNowByName.containsKey(name)) {
-        this.events.add(new LogOutEvent(response.getInformation().getLastUpdated(), name,
+        this.events.add(new LogOutEvent(this.response.getInformation().getLastUpdated(), name,
             player.getOnlineSince()));
 
         getPlayerUpdates(name).set("online", false).unset("onlineSince");
@@ -206,11 +207,11 @@ public class OnlinePlayersProcessor extends Task {
         continue;
       }
 
-      this.events.add(new LogInEvent(response.getInformation().getLastUpdated(), name));
+      this.events.add(new LogInEvent(this.response.getInformation().getLastUpdated(), name));
 
       if (databasePlayer != null) {
         getPlayerUpdates(name).set("online", true)
-            .set("onlineSince", response.getInformation().getLastUpdated());
+            .set("onlineSince", this.response.getInformation().getLastUpdated());
       }
     }
   }
