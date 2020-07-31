@@ -60,11 +60,13 @@ public class LoginRelationsProcessor extends Task {
   private final MongoTemplate mongoTemplate;
 
   public LoginRelationsProcessor(
-      @NonNull Set<String> playersWasOnline,
-      @NonNull Set<String> playersIsOnline,
+      Set<String> playersWasOnline,
+      Set<String> playersIsOnline,
       @NonNull MongoTemplate mongoTemplate) {
-    this.playersWasOnline = new TreeSet<>(playersWasOnline);
-    this.playersIsOnline = new TreeSet<>(playersIsOnline);
+    this.playersWasOnline =
+        playersWasOnline == null ? new TreeSet<>() : new TreeSet<>(playersWasOnline);
+    this.playersIsOnline =
+        playersIsOnline == null ? new TreeSet<>() : new TreeSet<>(playersIsOnline);
     this.mongoTemplate = mongoTemplate;
   }
 
@@ -88,7 +90,7 @@ public class LoginRelationsProcessor extends Task {
     BulkOperations bulkOperations = bulkOps();
 
     for (int i = 1; i <= relations.size(); i++) {
-      Relation relation = relations.get(i);
+      Relation relation = relations.get(i - 1);
 
       bulkOperations.upsert(
           query(where("from").is(relation.getFrom()).and("to").is(relation.getTo())),
@@ -108,14 +110,14 @@ public class LoginRelationsProcessor extends Task {
       executeBulkOperation(bulkOperations);
     }
 
-    log.debug("{}s to save all consecutive logins.", timer.elapsedTime(TimeUnit.SECONDS));
+    log.debug("{}s to save all relations.", timer.elapsedTime(TimeUnit.SECONDS));
   }
 
   private void executeBulkOperation(BulkOperations bulkOperations) {
     try {
       BulkWriteResult result = bulkOperations.execute();
 
-      log.info("Matched: {}, Updated: {}, Upserts: {}", result.getMatchedCount(),
+      log.debug("Matched: {}, Updated: {}, Upserts: {}", result.getMatchedCount(),
           result.getModifiedCount(), result.getUpserts().size());
     } catch (Exception e) {
       log.warn("Error executing bulk operations.", e);
