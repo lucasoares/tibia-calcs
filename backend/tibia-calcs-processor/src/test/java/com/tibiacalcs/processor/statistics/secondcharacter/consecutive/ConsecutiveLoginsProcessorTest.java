@@ -2,7 +2,6 @@ package com.tibiacalcs.processor.statistics.secondcharacter.consecutive;
 
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.Relation;
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.RelationType;
-import com.tibiacalcs.processor.statistics.secondcharacter.entities.PlayerData;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
@@ -16,15 +15,15 @@ public class ConsecutiveLoginsProcessorTest {
     // Player 4 login and player 1 logout
     // Result: char1 -> char4
 
-    TreeSet<PlayerData> oldPlayers = new TreeSet<>();
-    oldPlayers.add(new PlayerData("char2"));
-    oldPlayers.add(new PlayerData("char1"));
-    oldPlayers.add(new PlayerData("char3"));
+    TreeSet<String> oldPlayers = new TreeSet<>();
+    oldPlayers.add("char2");
+    oldPlayers.add("char1");
+    oldPlayers.add("char3");
 
-    TreeSet<PlayerData> newPlayers = new TreeSet<>();
-    newPlayers.add(new PlayerData("char2"));
-    newPlayers.add(new PlayerData("char3"));
-    newPlayers.add(new PlayerData("char4"));
+    TreeSet<String> newPlayers = new TreeSet<>();
+    newPlayers.add("char2");
+    newPlayers.add("char3");
+    newPlayers.add("char4");
 
     List<Relation> relations = ConsecutiveLoginsProcessor.process(oldPlayers, newPlayers);
 
@@ -38,15 +37,15 @@ public class ConsecutiveLoginsProcessorTest {
 
   @Test
   public void testConsecutiveSamePlayer() {
-    TreeSet<PlayerData> oldPlayers = new TreeSet<>();
-    oldPlayers.add(new PlayerData("char2"));
-    oldPlayers.add(new PlayerData("char1"));
-    oldPlayers.add(new PlayerData("char3"));
+    TreeSet<String> oldPlayers = new TreeSet<>();
+    oldPlayers.add("char2");
+    oldPlayers.add("char1");
+    oldPlayers.add("char3");
 
-    TreeSet<PlayerData> newPlayers = new TreeSet<>();
-    newPlayers.add(new PlayerData("char2"));
-    newPlayers.add(new PlayerData("char1"));
-    newPlayers.add(new PlayerData("char3"));
+    TreeSet<String> newPlayers = new TreeSet<>();
+    newPlayers.add("char2");
+    newPlayers.add("char1");
+    newPlayers.add("char3");
 
     List<Relation> relations = ConsecutiveLoginsProcessor.process(oldPlayers, newPlayers);
 
@@ -59,15 +58,15 @@ public class ConsecutiveLoginsProcessorTest {
     // Player 5 login and player 3 logout
     // Result: char1 -> char4, char3 -> char4,  char1 -> char5, char3 -> char5
 
-    TreeSet<PlayerData> oldPlayers = new TreeSet<>();
-    oldPlayers.add(new PlayerData("char2"));
-    oldPlayers.add(new PlayerData("char1"));
-    oldPlayers.add(new PlayerData("char3"));
+    TreeSet<String> oldPlayers = new TreeSet<>();
+    oldPlayers.add("char2");
+    oldPlayers.add("char1");
+    oldPlayers.add("char3");
 
-    TreeSet<PlayerData> newPlayers = new TreeSet<>();
-    newPlayers.add(new PlayerData("char5"));
-    newPlayers.add(new PlayerData("char2"));
-    newPlayers.add(new PlayerData("char4"));
+    TreeSet<String> newPlayers = new TreeSet<>();
+    newPlayers.add("char5");
+    newPlayers.add("char2");
+    newPlayers.add("char4");
 
     List<Relation> relations = ConsecutiveLoginsProcessor.process(oldPlayers, newPlayers);
 
@@ -91,15 +90,15 @@ public class ConsecutiveLoginsProcessorTest {
     // Player 5 login and player 3 logout
     // Result: char0 -> char1, char0 -> char3,  char1 -> char5, char3 -> char5
 
-    TreeSet<PlayerData> oldPlayers = new TreeSet<>();
-    oldPlayers.add(new PlayerData("char1"));
-    oldPlayers.add(new PlayerData("char2"));
-    oldPlayers.add(new PlayerData("char3"));
+    TreeSet<String> oldPlayers = new TreeSet<>();
+    oldPlayers.add("char1");
+    oldPlayers.add("char2");
+    oldPlayers.add("char3");
 
-    TreeSet<PlayerData> newPlayers = new TreeSet<>();
-    newPlayers.add(new PlayerData("char2"));
-    newPlayers.add(new PlayerData("char0"));
-    newPlayers.add(new PlayerData("char5"));
+    TreeSet<String> newPlayers = new TreeSet<>();
+    newPlayers.add("char2");
+    newPlayers.add("char0");
+    newPlayers.add("char5");
 
     List<Relation> relations = ConsecutiveLoginsProcessor.process(oldPlayers, newPlayers);
 
@@ -123,15 +122,15 @@ public class ConsecutiveLoginsProcessorTest {
     // Player 5 login and player 3 logout
     // Result: char1 -> char4, char3 -> char4,  char1 -> char5, char3 -> char5
 
-    TreeSet<PlayerData> oldPlayers = new TreeSet<>();
-    oldPlayers.add(new PlayerData("char3"));
-    oldPlayers.add(new PlayerData("char2"));
-    oldPlayers.add(new PlayerData("char1"));
+    TreeSet<String> oldPlayers = new TreeSet<>();
+    oldPlayers.add("char3");
+    oldPlayers.add("char2");
+    oldPlayers.add("char1");
 
-    TreeSet<PlayerData> newPlayers = new TreeSet<>();
-    newPlayers.add(new PlayerData("char5"));
-    newPlayers.add(new PlayerData("char4"));
-    newPlayers.add(new PlayerData("char2"));
+    TreeSet<String> newPlayers = new TreeSet<>();
+    newPlayers.add("char5");
+    newPlayers.add("char4");
+    newPlayers.add("char2");
 
     List<Relation> relations = ConsecutiveLoginsProcessor.process(oldPlayers, newPlayers);
 
@@ -155,15 +154,15 @@ public class ConsecutiveLoginsProcessorTest {
     // Player 5 login and player 3 logout
     // Result: char1 -> char4, char3 -> char4,  char1 -> char5, char3 -> char5
 
-    TreeSet<PlayerData> oldPlayers = new TreeSet<>();
-    oldPlayers.add(new PlayerData("char1"));
-    oldPlayers.add(new PlayerData("char2"));
-    oldPlayers.add(new PlayerData("char3"));
+    TreeSet<String> oldPlayers = new TreeSet<>();
+    oldPlayers.add("char1");
+    oldPlayers.add("char2");
+    oldPlayers.add("char3");
 
-    TreeSet<PlayerData> newPlayers = new TreeSet<>();
-    newPlayers.add(new PlayerData("char2"));
-    newPlayers.add(new PlayerData("char4"));
-    newPlayers.add(new PlayerData("char5"));
+    TreeSet<String> newPlayers = new TreeSet<>();
+    newPlayers.add("char2");
+    newPlayers.add("char4");
+    newPlayers.add("char5");
 
     List<Relation> relations = ConsecutiveLoginsProcessor.process(oldPlayers, newPlayers);
 
@@ -191,7 +190,7 @@ public class ConsecutiveLoginsProcessorTest {
   public void testConsecutiveEmptyNewData() {
     Assertions
         .assertTrue(ConsecutiveLoginsProcessor
-            .process(new TreeSet<>(Collections.singleton(new PlayerData("a"))),
+            .process(new TreeSet<>(Collections.singleton("a")),
                 new TreeSet<>()).isEmpty());
   }
 
@@ -200,7 +199,7 @@ public class ConsecutiveLoginsProcessorTest {
     Assertions
         .assertTrue(ConsecutiveLoginsProcessor
             .process(
-                new TreeSet<>(), new TreeSet<>(Collections.singleton(new PlayerData("a"))))
+                new TreeSet<>(), new TreeSet<>(Collections.singleton("a")))
             .isEmpty());
   }
 }

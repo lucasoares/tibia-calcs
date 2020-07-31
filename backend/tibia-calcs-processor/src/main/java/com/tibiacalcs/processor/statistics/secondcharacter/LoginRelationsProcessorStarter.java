@@ -21,8 +21,8 @@
 package com.tibiacalcs.processor.statistics.secondcharacter;
 
 import com.tibiacalcs.processor.data.player.online.OnlinePlayersEvent;
-import com.tibiacalcs.processor.statistics.secondcharacter.entities.PlayerData;
 import com.tibiacalcs.tibiadata.api.world.WorldResponse;
+import com.tibiacalcs.tibiadata.api.world.entities.OnlinePlayer;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -38,7 +38,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoginRelationsProcessorStarter {
 
-  private final ConcurrentHashMap<String, Set<PlayerData>> lastOnlinePlayers = new ConcurrentHashMap<>();
+  private final ConcurrentHashMap<String, Set<String>> lastOnlinePlayers = new ConcurrentHashMap<>();
 
   private final MongoTemplate mongoTemplate;
 
@@ -47,9 +47,9 @@ public class LoginRelationsProcessorStarter {
   public void worldOnlinePlayers(OnlinePlayersEvent event) {
     String worldName = event.getWorldResponse().getWorld().getWorldInformation().getName();
 
-    Set<PlayerData> old = this.lastOnlinePlayers.get(worldName);
+    Set<String> old = this.lastOnlinePlayers.get(worldName);
 
-    Set<PlayerData> current = convert(event.getWorldResponse());
+    Set<String> current = convert(event.getWorldResponse());
 
     new LoginRelationsProcessor(old, current, this.mongoTemplate)
         .process();
@@ -57,11 +57,11 @@ public class LoginRelationsProcessorStarter {
     this.lastOnlinePlayers.put(worldName, current);
   }
 
-  private Set<PlayerData> convert(
+  private Set<String> convert(
       WorldResponse worldResponse) {
 
     return worldResponse.getWorld().getPlayersOnline().stream()
-        .map(player -> new PlayerData(player.getName())
+        .map(OnlinePlayer::getName
         ).collect(Collectors.toSet());
   }
 }

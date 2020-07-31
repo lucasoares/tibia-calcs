@@ -25,7 +25,6 @@ import com.google.common.collect.Sets.SetView;
 import com.tibiacalcs.core.timer.Timer;
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.Relation;
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.RelationType;
-import com.tibiacalcs.processor.statistics.secondcharacter.entities.PlayerData;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,16 +37,16 @@ import lombok.extern.log4j.Log4j2;
 @UtilityClass
 public class ConsecutiveLoginsProcessor {
 
-  public List<Relation> process(@NonNull SortedSet<PlayerData> playersWasOnline,
-      @NonNull SortedSet<PlayerData> playersIsOnline) {
+  public List<Relation> process(@NonNull SortedSet<String> playersWasOnline,
+      @NonNull SortedSet<String> playersIsOnline) {
     Timer timer = new Timer();
 
-    SetView<PlayerData> logins = Sets
+    SetView<String> logins = Sets
         .difference(playersIsOnline, playersWasOnline);
 
     log.debug("{} players logged in.", logins.size());
 
-    SetView<PlayerData> logouts = Sets
+    SetView<String> logouts = Sets
         .difference(playersWasOnline, playersIsOnline);
 
     log.debug("{} players logged out.", logouts.size());
@@ -58,17 +57,17 @@ public class ConsecutiveLoginsProcessor {
 
     List<Relation> relations = new ArrayList<>();
 
-    for (PlayerData from : logins) {
-      for (PlayerData to : logouts) {
+    for (String from : logins) {
+      for (String to : logouts) {
         if (from.compareTo(to) < 0) {
           relations.add(
-              new Relation(from.getPlayerName(), to.getPlayerName(), RelationType.CONSECUTIVE));
+              new Relation(from, to, RelationType.CONSECUTIVE));
 
           continue;
         }
 
         relations.add(
-            new Relation(to.getPlayerName(), from.getPlayerName(), RelationType.CONSECUTIVE));
+            new Relation(to, from, RelationType.CONSECUTIVE));
       }
     }
 

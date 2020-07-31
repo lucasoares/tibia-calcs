@@ -30,7 +30,6 @@ import com.tibiacalcs.core.timer.Timer;
 import com.tibiacalcs.processor.statistics.secondcharacter.consecutive.ConsecutiveLoginsProcessor;
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.Relation;
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.RelationType;
-import com.tibiacalcs.processor.statistics.secondcharacter.entities.PlayerData;
 import com.tibiacalcs.processor.statistics.secondcharacter.overlap.OverlapLoginsProcessor;
 import com.tibiacalcs.processor.task.Task;
 import com.tibiacalcs.processor.task.TaskType;
@@ -52,17 +51,17 @@ public class LoginRelationsProcessor extends Task {
 
   @VisibleForTesting
   @Getter(AccessLevel.PACKAGE)
-  private final TreeSet<PlayerData> playersWasOnline;
+  private final TreeSet<String> playersWasOnline;
 
   @VisibleForTesting
   @Getter(AccessLevel.PACKAGE)
-  private final TreeSet<PlayerData> playersIsOnline;
+  private final TreeSet<String> playersIsOnline;
 
   private final MongoTemplate mongoTemplate;
 
   public LoginRelationsProcessor(
-      @NonNull Set<PlayerData> playersWasOnline,
-      @NonNull Set<PlayerData> playersIsOnline,
+      @NonNull Set<String> playersWasOnline,
+      @NonNull Set<String> playersIsOnline,
       @NonNull MongoTemplate mongoTemplate) {
     this.playersWasOnline = new TreeSet<>(playersWasOnline);
     this.playersIsOnline = new TreeSet<>(playersIsOnline);

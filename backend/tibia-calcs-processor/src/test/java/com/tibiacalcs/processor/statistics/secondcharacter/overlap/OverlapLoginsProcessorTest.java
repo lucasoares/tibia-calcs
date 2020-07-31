@@ -2,7 +2,6 @@ package com.tibiacalcs.processor.statistics.secondcharacter.overlap;
 
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.Relation;
 import com.tibiacalcs.processor.statistics.secondcharacter.entities.RelationType;
-import com.tibiacalcs.processor.statistics.secondcharacter.entities.PlayerData;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,11 +13,11 @@ public class OverlapLoginsProcessorTest {
 
   @Test
   public void testOverlapsCorrectSorting() {
-    Set<PlayerData> players = new HashSet<>();
+    Set<String> players = new HashSet<>();
 
-    players.add(new PlayerData("char2"));
-    players.add(new PlayerData("char1"));
-    players.add(new PlayerData("char3"));
+    players.add("char2");
+    players.add("char1");
+    players.add("char3");
 
     List<Relation> relations = OverlapLoginsProcessor
         .process(new TreeSet<>(players));
