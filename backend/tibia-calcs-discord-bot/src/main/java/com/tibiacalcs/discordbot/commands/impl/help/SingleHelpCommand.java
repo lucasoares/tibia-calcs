@@ -1,6 +1,6 @@
 package com.tibiacalcs.discordbot.commands.impl.help;
 
-import com.tibiacalcs.discordbot.commands.MessageCreateCommand;
+import com.tibiacalcs.discordbot.commands.Command;
 import discord4j.core.object.entity.channel.MessageChannel;
 import discord4j.rest.util.Color;
 import java.util.Map;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SingleHelpMessageCreateCommand {
+public class SingleHelpCommand {
 
   // Injecting all Commands as a strategy map
-  private final Map<String, MessageCreateCommand> commands;
+  private final Map<String, Command> commands;
 
   public void showHelp(MessageChannel channel, String commandName) {
-    MessageCreateCommand command = commands.get(commandName);
+    Command command = this.commands.get(commandName);
 
     StringBuilder helperMessage = new StringBuilder(command.getDescription())
         .append("\n\nExamples:");

@@ -1,6 +1,6 @@
 package com.tibiacalcs.discordbot.commands.impl.feature;
 
-import com.tibiacalcs.discordbot.commands.MessageCreateCommand;
+import com.tibiacalcs.discordbot.commands.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.User;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Log4j2
 @Component("feature")
 @RequiredArgsConstructor
-public class FeatureSuggestionCommand implements MessageCreateCommand {
+public class FeatureSuggestionCommand implements Command {
 
   @Override
   public String getDescription() {

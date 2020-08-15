@@ -31,6 +31,7 @@ public interface PlayerRepository extends MongoRepository<Player, String> {
   List<Player> findAllByWorldAndOnlineOrNameIn(String world, boolean online,
       Collection<String> name);
 
-  @Query(fields = "{name : 1, lvl : 1}")
   List<Player> findAllByNameIn(Collection<String> name);
+
+  Player findByName(String name);
 }

@@ -22,4 +22,8 @@ package com.tibiacalcs.core.relation;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface PlayerLoginRelationRepository extends MongoRepository<PlayerLoginRelation, String> {}
+public interface PlayerLoginRelationRepository extends
+    MongoRepository<PlayerLoginRelation, String> {
+
+  String COLLECTION = "player_login_relations";
+}

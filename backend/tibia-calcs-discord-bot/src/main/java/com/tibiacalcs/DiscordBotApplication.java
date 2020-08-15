@@ -1,4 +1,4 @@
-package com.tibiacalcs.discordbot;
+package com.tibiacalcs;
 
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

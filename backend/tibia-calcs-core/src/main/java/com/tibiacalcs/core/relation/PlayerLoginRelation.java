@@ -26,7 +26,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Accessors(chain = true)
-@Document(collection = "player_login_relations")
+@Document(collection = PlayerLoginRelationRepository.COLLECTION)
 public class PlayerLoginRelation {
 
   private String from;

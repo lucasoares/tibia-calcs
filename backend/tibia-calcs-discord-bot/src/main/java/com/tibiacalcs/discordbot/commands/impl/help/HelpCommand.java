@@ -1,6 +1,6 @@
 package com.tibiacalcs.discordbot.commands.impl.help;
 
-import com.tibiacalcs.discordbot.commands.MessageCreateCommand;
+import com.tibiacalcs.discordbot.commands.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.channel.MessageChannel;
 import discord4j.core.spec.EmbedCreateSpec;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 
 @Component("help")
 @RequiredArgsConstructor
-public class HelpMessageCreateCommand implements MessageCreateCommand {
+public class HelpCommand implements Command {
 
-  private final Map<String, MessageCreateCommand> commands;
+  private final Map<String, Command> commands;
 
   @Override
   public String getDescription() {
@@ -26,6 +26,11 @@ public class HelpMessageCreateCommand implements MessageCreateCommand {
   @Override
   public List<String> getExamples() {
     return Collections.singletonList("!tc help");
+  }
+
+  @Override
+  public boolean acceptEmptyContent() {
+    return true;
   }
 
   @Override
@@ -40,10 +45,10 @@ public class HelpMessageCreateCommand implements MessageCreateCommand {
               .setFooter("© TibiaCalcs", "")
               .setUrl("https://tibiacalcs.com/discordbot");
 
-          for (Entry<String, MessageCreateCommand> entry : this.commands
+          for (Entry<String, Command> entry : this.commands
               .entrySet()) {
 
-            MessageCreateCommand command = entry.getValue();
+            Command command = entry.getValue();
             embedCreateSpec
                 .addField(entry.getKey(),
                     command.getDescription() + "\n`!tc " + entry.getKey()
