@@ -38,7 +38,7 @@ public class HelpCommand implements Command {
     final MessageChannel channel = event.getMessage().getChannel().block();
 
     channel.createEmbed(spec -> {
-          EmbedCreateSpec embedCreateSpec = spec.setColor(Color.GRAY)
+          EmbedCreateSpec embedCreateSpec = spec.setColor(Color.GREEN)
               .setDescription(
                   "List of all available commands.\nFor more information access https://tibiacalcs.com")
               .setTitle("Available Commands")

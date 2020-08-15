@@ -33,5 +33,6 @@ public interface PlayerRepository extends MongoRepository<Player, String> {
 
   List<Player> findAllByNameIn(Collection<String> name);
 
-  Player findByName(String name);
+  @Query(value = "{'name': {$regex : ?0, $options: 'i'}}")
+  Player findByNameRegex(String name);
 }

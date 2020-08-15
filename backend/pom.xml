@@ -121,7 +121,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <argLine>
-            @{argLine}
+            @{argLine} --enable-preview
           </argLine>
         </configuration>
       </plugin>
@@ -129,6 +129,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <release>${java.version}</release>
+          <compilerArgs>
+            --enable-preview
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>

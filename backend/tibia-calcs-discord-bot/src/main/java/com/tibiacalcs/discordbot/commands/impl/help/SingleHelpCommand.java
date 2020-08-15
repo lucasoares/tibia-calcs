@@ -25,7 +25,7 @@ public class SingleHelpCommand {
     }
 
     channel.createEmbed(spec ->
-        spec.setColor(Color.GRAY)
+        spec.setColor(Color.GREEN)
             .setDescription(helperMessage.toString())
             .setTitle("Command Helper: " + commandName)
             .setFooter("© TibiaCalcs", "")

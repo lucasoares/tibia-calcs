@@ -39,7 +39,7 @@ public class OnlineTimeCommand implements Command {
   @Override
   public String getDescription() {
     return """
-        Check for total online time for a character. Data collected since 24 Jul 2020.""";
+        Checks for total online time for a character. Data collected since 24 Jul 2020.""";
   }
 
   @Override
@@ -53,7 +53,7 @@ public class OnlineTimeCommand implements Command {
     final MessageChannel channel = event.getMessage().getChannel().block();
 
     Player player = this.playerRepository
-        .findByName(content);
+        .findByNameRegex(content);
 
     if (player == null) {
       CommandUtils.sendPlayerNotFound(channel, content);
@@ -69,7 +69,7 @@ public class OnlineTimeCommand implements Command {
 
       Duration durationTotal = getOnlineTime(player, this.HONBRA_COLLECT_DATE);
 
-      channel.createEmbed(spec -> spec.setColor(Color.GRAY)
+      channel.createEmbed(spec -> spec.setColor(Color.GREEN)
           .setDescription("""
               Character online time. It is an approximate value.
 

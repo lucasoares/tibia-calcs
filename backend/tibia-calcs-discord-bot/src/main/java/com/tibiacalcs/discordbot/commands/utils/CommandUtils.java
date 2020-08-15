@@ -12,7 +12,7 @@ public class CommandUtils {
   }
 
   public void sendPlayerNotFound(MessageChannel channel, String normalizedName) {
-    channel.createEmbed(spec -> spec.setColor(Color.GRAY)
+    channel.createEmbed(spec -> spec.setColor(Color.YELLOW)
         .setDescription(
             """
                 There is not enough data for `%s`.
@@ -27,7 +27,7 @@ public class CommandUtils {
   }
 
   public void sendInvalidPermissions(MessageChannel channel) {
-    channel.createEmbed(spec -> spec.setColor(Color.GRAY)
+    channel.createEmbed(spec -> spec.setColor(Color.RED)
         .setDescription(
             """
                 You do not have enough permission to execute this command

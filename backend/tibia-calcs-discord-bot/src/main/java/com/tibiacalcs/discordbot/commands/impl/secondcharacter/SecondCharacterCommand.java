@@ -57,7 +57,7 @@ public class SecondCharacterCommand implements Command {
     }
 
     Player player = this.playerRepository
-        .findByName(content);
+        .findByNameRegex(content);
 
     final MessageChannel channel = event.getMessage().getChannel().block();
 
@@ -83,7 +83,7 @@ public class SecondCharacterCommand implements Command {
     Map<String, Player> players = getPlayerData(player, playerLoginRelations).stream().collect(
         Collectors.toMap(Player::getName, Function.identity()));
     channel.createEmbed(spec -> {
-          EmbedCreateSpec embedCreateSpec = spec.setColor(Color.GRAY)
+          EmbedCreateSpec embedCreateSpec = spec.setColor(Color.GREEN)
               .setDescription("""
                   List of possible second characters.
                   There is no guarantee that characters displayed here are from the same player.
