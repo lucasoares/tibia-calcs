@@ -7,7 +7,7 @@ import com.tibiacalcs.core.player.Player;
 import com.tibiacalcs.core.player.PlayerRepository;
 import com.tibiacalcs.core.relation.PlayerLoginRelation;
 import com.tibiacalcs.discordbot.commands.Command;
-import com.tibiacalcs.discordbot.commands.impl.onlinetime.OnlineTimeCommand;
+import com.tibiacalcs.discordbot.commands.impl.online.OnlineTimeCommand;
 import com.tibiacalcs.discordbot.commands.utils.CommandUtils;
 import com.tibiacalcs.discordbot.exceptions.InvalidCommandParameterException;
 import discord4j.core.event.domain.message.MessageCreateEvent;

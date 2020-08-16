@@ -1,4 +1,4 @@
-package com.tibiacalcs.discordbot.commands.impl.onlinetime;
+package com.tibiacalcs.discordbot.commands.impl.online;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;

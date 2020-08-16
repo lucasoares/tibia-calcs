@@ -33,6 +33,9 @@ public interface PlayerRepository extends MongoRepository<Player, String> {
 
   List<Player> findAllByNameIn(Collection<String> name);
 
-  @Query(value = "{'name': {$regex : ?0, $options: 'i'}}")
+  @Query(value = "{'name': {$regex : '^?0$', $options: 'i'}}")
   Player findByNameRegex(String name);
+
+  @Query(value = "{'name': {$regex : ?0, $options: 'i'}}", sort = "{'lvl' : -1}")
+  List<Player> findAllByNameRegexOrderByLvlDesc(String name);
 }
