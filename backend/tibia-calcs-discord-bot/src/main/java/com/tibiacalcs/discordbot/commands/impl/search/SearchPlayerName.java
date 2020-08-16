@@ -34,7 +34,7 @@ public class SearchPlayerName implements Command {
 
   @Override
   public List<String> getExamples() {
-    return Collections.singletonList("!tc player agent");
+    return Collections.singletonList("!tc search agent");
   }
 
   @Override
