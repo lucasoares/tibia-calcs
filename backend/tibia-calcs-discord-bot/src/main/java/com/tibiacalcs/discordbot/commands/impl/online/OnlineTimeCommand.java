@@ -101,18 +101,28 @@ public class OnlineTimeCommand implements Command {
   }
 
   public Duration getOnlineTime(Player player, Date date) {
-    Aggregation aggregation = newAggregation(
-        match(
-            new Criteria("in").gte(date)
-                .and("name").is(player.getName())),
-        project().and("$date").minus("$in").as("total"),
-        group().sum("total").as("count")
-    );
+    try {
+      Aggregation aggregation = newAggregation(
+          match(
+              new Criteria("in").gte(date)
+                  .and("name").is(player.getName())),
+          project().and("$date").minus("$in").as("total"),
+          group().sum("total").as("count")
+      );
 
-    AggregationResults<Document> aggregate = this.mongoTemplate
-        .aggregate(aggregation, this.mongoTemplate.getCollectionName(LogOutEvent.class),
-            Document.class);
+      AggregationResults<Document> aggregate = this.mongoTemplate
+          .aggregate(aggregation, this.mongoTemplate.getCollectionName(LogOutEvent.class),
+              Document.class);
 
-    return Duration.ofMillis(aggregate.getMappedResults().get(0).getLong("count"));
+      if (aggregate.getMappedResults().isEmpty()) {
+        return Duration.ofMillis(0);
+      }
+
+      return Duration.ofMillis(aggregate.getMappedResults().get(0).getLong("count"));
+    } catch (Exception e) {
+      log.error("Error getting online time.", e);
+    }
+
+    return Duration.ofMillis(0);
   }
 }
