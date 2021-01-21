@@ -18,7 +18,6 @@
 
   <modules>
     <module>tibia-calcs-core</module>
-    <module>tibia-api</module>
     <module>tibia-calcs-discord-bot</module>
     <module>tibia-calcs-processor</module>
     <module>tibia-calcs-log4j2</module>
