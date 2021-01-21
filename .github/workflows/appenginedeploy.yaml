@@ -50,6 +50,9 @@ jobs:
       - name: Build
         run: npm run build --if-present
         working-directory: frontend
-      - name: Deploy
-        run: gcloud app deploy app.yaml
-        working-directory: frontend
+      - id: deploy
+        name: Deploy
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          deliverables: frontend/app.yaml
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
