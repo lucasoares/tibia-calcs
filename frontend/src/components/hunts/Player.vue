@@ -52,6 +52,11 @@
           :rules="[rules.isInteger]"
           label="Imbuement cost per hour"
       />
+      <v-text-field
+          v-model.number="player.additionalCost"
+          :rules="[rules.isInteger]"
+          label="Additional cost"
+      />
       <v-select
           v-model="player.transferredTo"
           clearable
