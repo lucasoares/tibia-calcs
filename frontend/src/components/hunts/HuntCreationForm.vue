@@ -51,7 +51,7 @@
           v-model="partyHunt"
           no-resize
           class="creation-text"
-          label='Paste your Party Hunt here'
+          label='Copy and paste your Party Analyzer log here'
       ></v-textarea>
     </v-container>
   </v-form>

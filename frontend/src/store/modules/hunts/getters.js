@@ -43,6 +43,7 @@ function getSingleHuntResult(hunt) {
       balance: player.balance,
       transferredTo: player.transferredTo,
       imbuementCost: player.imbuementCost,
+      additionalCost: player.additionalCost,
     };
   });
 
@@ -68,6 +69,16 @@ function getSingleHuntResult(hunt) {
 
       huntBalance -= playerImbuementCost;
       player.balance -= playerImbuementCost;
+    }
+  });
+
+  // Compute player additional costs
+  Object.keys(players).forEach((name) => {
+    const player = players[name];
+
+    if (player.additionalCost) {
+      huntBalance -= player.additionalCost;
+      player.balance -= player.additionalCost;
     }
   });
 
