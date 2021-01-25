@@ -25,6 +25,7 @@
   <div class="material-image">
     <v-tooltip top>
       <template v-slot:activator="{ on }">
+        <span class="quantity" v-if="value.quantity">{{value.quantity}}</span>
         <a :href="'https://tibia.fandom.com/wiki/' + normalizedMaterialName" target="_blank">
           <img :src="materialImage"
                width="32"
@@ -58,9 +59,14 @@ export default {
 </script>
 
 <style scoped>
+  .quantity {
+    margin-right: 5px;
+  }
+
   .material-image {
     align-self: flex-end;
     vertical-align: middle;
     display: inline-flex;
+    margin-right: 10px;
   }
 </style>

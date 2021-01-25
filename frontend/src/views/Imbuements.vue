@@ -105,32 +105,25 @@
 
           <v-container class="imbuements-results">
             <v-row>
-              <v-col cols="12" v-if="imbuements[selected].goldToken">
-                <b>Best choice:</b>
-
-                <span v-if="totalMaterialsPrice < goldTokenTotalPrice">
+              <v-col
+                  v-for="(option, n) in paymentOptions" :key="n"
+                  cols="12">
+                <div class="material-icon">
                   <ImbuementMaterialImage
-                      v-for="n in 3"
-                      :key="n"
-                      v-model="selectedImbuement.materials[n-1]"/>
-                </span>
-
-                <span v-if="goldTokenTotalPrice <= totalMaterialsPrice">
-                  <ImbuementMaterialImage
-                      v-model="goldToken"/>
-                </span>
-              </v-col>
-              <v-col cols="12">
-                <h4 v-if="imbuements[selected].goldToken">Materials</h4>
-                <v-divider class="materials-diviser" v-if="imbuements[selected].goldToken"/>
-                <p>Total Price: {{totalMaterialsPrice.toLocaleString()}}</p>
-                <p>Price per Hour: {{materialsPricePerHour.toLocaleString()}}</p>
-              </v-col>
-              <v-col cols="12" v-if="imbuements[selected].goldToken">
-                <h4>Gold Tokens</h4>
-                <v-divider class="materials-diviser"></v-divider>
-                <p>Total Price: {{goldTokenTotalPrice.toLocaleString()}}</p>
-                <p>Price per Hour: {{goldTokenPricePerHour.toLocaleString()}}</p>
+                      v-for="(_, i) in option.materials" :key="i"
+                      v-model="option.materials[i]"/>
+                </div>
+                <p>Total Price: <span
+                    v-bind:class="{
+                      'green--text': paymentOptions[n].best,
+                      'red--text': !paymentOptions[n].best
+                    }">{{paymentOptions[n].price | formatNumber}}</span></p>
+                <p>Price per Hour: <span
+                    v-bind:class="{
+                      'green--text': paymentOptions[n].best,
+                      'red--text': !paymentOptions[n].best
+                    }">{{getPricePerHour(paymentOptions[n].price) | formatNumber}}</span></p>
+                <v-divider class="materials-divider"/>
               </v-col>
             </v-row>
           </v-container>
@@ -177,41 +170,64 @@ export default {
           return 50000;
       }
     },
-    materialsPrice() {
-      let price = 0;
-
-      for (let n = 0; n < this.tier; n += 1) {
-        const material = this.selectedImbuement.materials[n];
-
-        if (material.price) {
-          price += material.quantity * Number(material.price);
-        }
-      }
-
-      return price;
-    },
-    totalMaterialsPrice() {
-      return this.tierPrice + this.chancePrice + this.materialsPrice;
-    },
-    materialsPricePerHour() {
-      return Math.round(this.totalMaterialsPrice / 20);
-    },
     getBaseImage() {
       return `/images/imbuements/base/${this.normalizeString(this.selectedImbuement.name)}_${this.tier}.png`;
     },
-    goldTokenTotalPrice() {
-      if (!this.goldToken.price) {
-        return this.tierPrice + this.chancePrice;
-      }
-
-      return 2 * this.tier * this.goldToken.price
-          + this.tierPrice + this.chancePrice;
-    },
-    goldTokenPricePerHour() {
-      return Math.round(this.goldTokenTotalPrice / 20);
-    },
     selectedImbuement() {
       return this.imbuements[this.selected];
+    },
+    paymentOptions() {
+      if (!this.selectedImbuement.goldToken) {
+        return [{
+          materials: this.selectedImbuement.materials,
+          price: this.getMaterialsPrice(this.selectedImbuement.materials),
+        }];
+      }
+
+      const first = [
+        {
+          name: this.goldToken.name,
+          quantity: 6,
+        },
+      ];
+
+      const second = [
+        this.selectedImbuement.materials[2],
+        {
+          name: this.goldToken.name,
+          quantity: 4,
+        },
+      ];
+      const third = [
+        this.selectedImbuement.materials[1],
+        this.selectedImbuement.materials[2],
+        {
+          name: this.goldToken.name,
+          quantity: 2,
+        },
+      ];
+      const fourth = this.selectedImbuement.materials;
+
+      const options = [
+        {
+          materials: first,
+          price: this.getMaterialsPrice(first),
+        }, {
+          materials: second,
+          price: this.getMaterialsPrice(second),
+        }, {
+          materials: third,
+          price: this.getMaterialsPrice(third),
+        }, {
+          materials: fourth,
+          price: this.getMaterialsPrice(fourth),
+        },
+      ];
+
+      options.sort((a, b) => a.price - b.price);
+      options[0].best = true;
+
+      return options;
     },
   },
   methods: {
@@ -224,20 +240,38 @@ export default {
     },
     getMaterialLabel(n) {
       if (n === 3) {
-        return `${this.tier * 2}x ${this.goldToken.name}`;
+        return `${this.goldToken.name}`;
       }
 
-      return `${this.selectedImbuement.materials[n].quantity}x ${this.selectedImbuement.materials[n].name}`;
+      return `${this.selectedImbuement.materials[n].name}`;
     },
     getLabel(imbuement) {
       return `${imbuement.name} (${imbuement.description})`;
+    },
+    getMaterialsPrice(option) {
+      let price = this.tierPrice + this.chancePrice;
+
+      for (let n = 0; n < option.length; n += 1) {
+        if (option[n].quantity) {
+          if (this.goldToken.price && option[n].name === this.goldToken.name) {
+            price += option[n].quantity * this.goldToken.price;
+          } else {
+            price += option[n].quantity * option[n].price;
+          }
+        }
+      }
+
+      return price;
+    },
+    getPricePerHour(totalPrice) {
+      return Math.round(totalPrice / 20);
     },
   },
 };
 </script>
 
 <style scoped>
-  .materials-diviser {
+  .materials-divider {
     margin-bottom: 10px;
   }
 

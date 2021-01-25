@@ -22,6 +22,7 @@
 */
 
 import Vue from 'vue';
+import numeral from 'numeral';
 
 Vue.filter('round', (value, accuracy, keep) => {
   if (typeof value !== 'number') {
@@ -40,3 +41,5 @@ Vue.filter('abs', (value) => {
 
   return Math.abs(value);
 });
+
+Vue.filter('formatNumber', (value) => numeral(value).format('0,0'));
