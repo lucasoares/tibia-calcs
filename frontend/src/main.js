@@ -21,6 +21,7 @@
 ===========================================================================
 */
 
+import Notifications from 'vue-notification';
 import Vue from 'vue';
 import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
@@ -37,6 +38,8 @@ Vue.use(VueAnalytics, {
   id: 'UA-167771791-1',
   router,
 });
+
+Vue.use(Notifications);
 
 new Vue({
   router,

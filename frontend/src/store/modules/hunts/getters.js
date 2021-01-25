@@ -97,6 +97,7 @@ function getSingleHuntResult(hunt) {
 }
 
 export default {
+  getNonPaidHunts: (state) => state.hunts.filter((hunt) => !hunt.paid),
   getHuntResult: (state) => {
     const playersFinalBalance = {};
     state.hunts.filter((hunt) => !hunt.paid).forEach((hunt) => {

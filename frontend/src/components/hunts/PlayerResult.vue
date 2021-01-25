@@ -30,8 +30,8 @@
     <label v-if="player.balance === 0" class="stats-key">everything settled </label>
     <span v-if="player.balance != 0"
           :class="{
-              'red-color' : player.balance < 0,
-              'green-color' : player.balance > 0,
+              'green-color' : player.balance < 0,
+              'red-color' : player.balance > 0,
         }">
           {{player.balance | abs }}</span><br>
   </div>

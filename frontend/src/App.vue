@@ -26,6 +26,7 @@
     <NavBar/>
     <main class="main">
       <router-view/>
+      <notifications position="bottom right"/>
     </main>
   </v-app>
 </template>

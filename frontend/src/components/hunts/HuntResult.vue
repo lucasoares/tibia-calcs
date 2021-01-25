@@ -23,8 +23,16 @@
 
 <template>
   <v-container fluid>
-    <h1>Results</h1>
-    <h3 v-if="!containsPlayers(getHuntResult)">Everything Settled!</h3>
+    <h1>Results
+      <v-btn v-if="containsPlayers(getHuntResult)" icon v-on:click="copyResultToClipboard">
+        <v-icon>mdi-content-copy</v-icon>
+      </v-btn>
+    </h1>
+
+    <p v-if="!containsPlayers(getHuntResult)">
+      <br>
+      There is no session that has not yet been paid.
+    </p>
 
     <accordion v-if="containsPlayers(getHuntResult)">
       <accordion-item :name="`Transfer Suggestion`">
@@ -42,7 +50,7 @@
         </template>
       </accordion-item>
 
-      <accordion-item :name="`Players Balances`">
+      <accordion-item :name="`Player Balance`">
         <template slot="accordion-content">
           <v-container>
             <v-row>
@@ -70,6 +78,8 @@ import Accordion from '@/components/base/Accordion.vue';
 import AccordionItem from '@/components/base/AccordionItem.vue';
 import TransferSuggestion from '@/components/hunts/TransferSuggestion.vue';
 
+const moment = require('moment');
+
 export default {
   name: 'HuntsResult',
   components: {
@@ -81,8 +91,51 @@ export default {
   computed: {
     ...mapGetters('hunts', [
       'getHuntResult',
+      'getNonPaidHunts',
       'getTransferSuggestion',
     ]),
+    huntStringResult() {
+      let result = 'Party hunt analyzer provided by https://tibiacalcs.com/\n\n';
+
+      result += 'Sessions:\n```\n';
+      for (let i = 0; i < this.getNonPaidHunts.length; i += 1) {
+        const hunt = this.getNonPaidHunts[i];
+        result += `${hunt.initDate} to ${hunt.endDate} (${moment.duration(hunt.session).humanize()}) with ${hunt.playersNumber} players: `;
+
+        const players = [];
+        hunt.players.forEach((player) => {
+          players.push(player.name);
+        });
+
+        result += `${players.join(', ')}.\n`;
+      }
+
+      result += '```\nTransfer:\n```\n';
+
+      const suggestion = this.getTransferSuggestion;
+
+      for (let i = 0; i < suggestion.length; i += 1) {
+        const transfer = suggestion[i];
+
+        result += `${transfer.from} should transfer ${transfer.amount} to ${transfer.to}\n`;
+        result += `\t> transfer ${transfer.amount} to ${transfer.to}\n`;
+        result += `\t> withdraw ${transfer.amount}\n`;
+      }
+
+      result += '```\nPlayer Balance:\n```\n';
+
+      for (let i = 0; i < this.getHuntResult.length; i += 1) {
+        const playerBalance = this.getHuntResult[i];
+
+        if (playerBalance.balance < 0) {
+          result += `${playerBalance.name} owes ${-playerBalance.balance}\n`;
+        } else if (playerBalance.balance > 0) {
+          result += `${playerBalance.name} needs to receive ${playerBalance.balance}\n`;
+        }
+      }
+
+      return `${result}\`\`\``;
+    },
   },
   methods: {
     containsPlayers(players) {
@@ -99,6 +152,23 @@ export default {
         }
 
         return false;
+      });
+    },
+    copyResultToClipboard() {
+      const el = document.createElement('textarea');
+      el.value = this.huntStringResult;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+
+      this.$notify({
+        title: 'Copied to Clipboard',
+        type: 'success',
+        text: 'Party hunt results were copied to the clipboard.',
       });
     },
   },
