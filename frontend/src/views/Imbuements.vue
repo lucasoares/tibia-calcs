@@ -209,10 +209,10 @@ export default {
       }
 
       this.addToOptions(options, [
-        this.selectedImbuement.materials[3 - this.tier],
+        this.selectedImbuement.materials[this.tier - 1],
         {
           name: this.goldToken.name,
-          quantity: (this.tier - 1) * 2,
+          quantity: 2 * (this.tier - 1),
         },
       ]);
 
