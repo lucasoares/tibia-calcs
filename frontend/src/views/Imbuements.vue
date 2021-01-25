@@ -30,7 +30,7 @@
     <v-container class="calculator">
       <v-row no-gutters>
         <v-col cols="4">
-          <h3>Configuration</h3>
+          <h3>Imbuement Selector</h3>
 
           <v-row>
             <v-col sm="4" lg="3" xl="2">
@@ -61,7 +61,7 @@
           <v-checkbox v-model="chance" label="100% Chance"></v-checkbox>
         </v-col>
         <v-col cols="4">
-          <h3>Materials Prices</h3>
+          <h3>Price</h3>
 
           <v-row dense>
             <v-col
@@ -101,12 +101,12 @@
           </v-row>
         </v-col>
         <v-col cols="4">
-          <h3>Results</h3>
+          <h3>Result</h3>
 
           <v-container class="imbuements-results">
             <v-row>
               <v-col
-                  v-for="(option, n) in paymentOptions" :key="n"
+                  v-for="(option, n) in orderedOptions" :key="n"
                   cols="12">
                 <div class="material-icon">
                   <ImbuementMaterialImage
@@ -115,14 +115,14 @@
                 </div>
                 <p>Total Price: <span
                     v-bind:class="{
-                      'green--text': paymentOptions[n].best,
-                      'red--text': !paymentOptions[n].best
-                    }">{{paymentOptions[n].price | formatNumber}}</span></p>
+                      'green--text': orderedOptions[n].best,
+                      'red--text': !orderedOptions[n].best
+                    }">{{orderedOptions[n].price | formatNumber}}</span></p>
                 <p>Price per Hour: <span
                     v-bind:class="{
-                      'green--text': paymentOptions[n].best,
-                      'red--text': !paymentOptions[n].best
-                    }">{{getPricePerHour(paymentOptions[n].price) | formatNumber}}</span></p>
+                      'green--text': orderedOptions[n].best,
+                      'red--text': !orderedOptions[n].best
+                    }">{{getPricePerHour(orderedOptions[n].price) | formatNumber}}</span></p>
                 <v-divider class="materials-divider"/>
               </v-col>
             </v-row>
@@ -176,56 +176,58 @@ export default {
     selectedImbuement() {
       return this.imbuements[this.selected];
     },
+    orderedOptions() {
+      const options = this.paymentOptions;
+
+      options.sort((a, b) => a.price - b.price);
+      options[0].best = true;
+
+      return options;
+    },
     paymentOptions() {
+      const options = [];
+
+      const normalMaterials = [];
+      for (let i = 0; i < this.tier; i += 1) {
+        normalMaterials.push(this.selectedImbuement.materials[i]);
+      }
+      this.addToOptions(options, normalMaterials);
+
       if (!this.selectedImbuement.goldToken) {
-        return [{
-          materials: this.selectedImbuement.materials,
-          price: this.getMaterialsPrice(this.selectedImbuement.materials),
-        }];
+        return options;
       }
 
-      const first = [
+      this.addToOptions(options, [
         {
           name: this.goldToken.name,
-          quantity: 6,
+          quantity: this.tier * 2,
         },
-      ];
+      ]);
 
-      const second = [
-        this.selectedImbuement.materials[2],
+      if (this.tier === 1) {
+        return options;
+      }
+
+      this.addToOptions(options, [
+        this.selectedImbuement.materials[3 - this.tier],
         {
           name: this.goldToken.name,
-          quantity: 4,
+          quantity: (this.tier - 1) * 2,
         },
-      ];
-      const third = [
+      ]);
+
+      if (this.tier === 2) {
+        return options;
+      }
+
+      this.addToOptions(options, [
         this.selectedImbuement.materials[1],
         this.selectedImbuement.materials[2],
         {
           name: this.goldToken.name,
           quantity: 2,
         },
-      ];
-      const fourth = this.selectedImbuement.materials;
-
-      const options = [
-        {
-          materials: first,
-          price: this.getMaterialsPrice(first),
-        }, {
-          materials: second,
-          price: this.getMaterialsPrice(second),
-        }, {
-          materials: third,
-          price: this.getMaterialsPrice(third),
-        }, {
-          materials: fourth,
-          price: this.getMaterialsPrice(fourth),
-        },
-      ];
-
-      options.sort((a, b) => a.price - b.price);
-      options[0].best = true;
+      ]);
 
       return options;
     },
@@ -265,6 +267,14 @@ export default {
     },
     getPricePerHour(totalPrice) {
       return Math.round(totalPrice / 20);
+    },
+    addToOptions(options, option) {
+      options.push(
+        {
+          materials: option,
+          price: this.getMaterialsPrice(option),
+        },
+      );
     },
   },
 };
