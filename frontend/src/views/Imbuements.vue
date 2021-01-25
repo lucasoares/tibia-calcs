@@ -255,8 +255,10 @@ export default {
 
       for (let n = 0; n < option.length; n += 1) {
         if (option[n].quantity) {
-          if (this.goldToken.price && option[n].name === this.goldToken.name) {
-            price += option[n].quantity * this.goldToken.price;
+          if (option[n].name === this.goldToken.name) {
+            if (this.goldToken.price) {
+              price += option[n].quantity * this.goldToken.price;
+            }
           } else {
             price += option[n].quantity * option[n].price;
           }
