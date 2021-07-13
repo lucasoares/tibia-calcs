@@ -24,7 +24,7 @@
 const moment = require('moment');
 
 function getNumber(name, data) {
-  const re = new RegExp(`.*${name}:`, 'g');
+  const re = new RegExp(`.*${name} `, 'g');
 
   return parseInt(data.replace(re, '').replace(/,/g, ''), 10);
 }
@@ -82,7 +82,7 @@ function parse(partyHunt) {
       }
 
       if (data.includes('Session')) {
-        hunt.session = parseSession(data.replace('Session: ', ''));
+        hunt.session = parseSession(data.replace('Session ', ''));
 
         return;
       }
