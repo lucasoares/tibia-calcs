@@ -23,10 +23,12 @@
 
 const moment = require('moment');
 
-function getNumber(name, data) {
-  const re = new RegExp(`.*${name}:`, 'g');
+function getValueFromLine(label, line) {
+  return line.replace(new RegExp(`.*${label}:? ?`, 'g'), '');
+}
 
-  return parseInt(data.replace(re, '').replace(/,/g, ''), 10);
+function getNumber(label, line) {
+  return parseInt(getValueFromLine(label, line).replace(/,/g, ''), 10);
 }
 
 function getDates(sessionData) {
@@ -52,9 +54,9 @@ function parse(partyHunt) {
   let newPlayer = false;
   let currentPlayer = {};
 
-  lines.forEach((data) => {
-    if (data.includes('Session data')) {
-      const dates = getDates(data);
+  lines.forEach((line) => {
+    if (line.includes('Session data')) {
+      const dates = getDates(line);
 
       hunt.initDate = dates.initDate;
       hunt.endDate = dates.endDate;
@@ -67,8 +69,8 @@ function parse(partyHunt) {
       currentPlayer.imbuementCost = 0;
       currentPlayer.transferredTo = '';
       currentPlayer.paid = false;
-      currentPlayer.name = data.replace(' (Leader)', '');
-      currentPlayer.leader = data.includes('(Leader)');
+      currentPlayer.name = line.replace(' (Leader)', '');
+      currentPlayer.leader = line.includes('(Leader)');
       huntData = false;
       newPlayer = false;
 
@@ -76,61 +78,61 @@ function parse(partyHunt) {
     }
 
     if (!currentPlayer.name) {
-      if (data.includes('Loot Type')) {
-        hunt.lootType = data.replace('Loot Type: ', '');
+      if (line.includes('Loot Type')) {
+        hunt.lootType = getValueFromLine('Loot Type', line);
         return;
       }
 
-      if (data.includes('Session')) {
-        hunt.session = parseSession(data.replace('Session: ', ''));
+      if (line.includes('Session')) {
+        hunt.session = parseSession(getValueFromLine('Session', line));
 
         return;
       }
 
-      if (data.includes('Loot')) {
-        hunt.loot = getNumber('Loot', data);
+      if (line.includes('Loot')) {
+        hunt.loot = getNumber('Loot', line);
         return;
       }
 
-      if (data.includes('Supplies')) {
-        hunt.supplies = getNumber('Supplies', data);
+      if (line.includes('Supplies')) {
+        hunt.supplies = getNumber('Supplies', line);
         return;
       }
 
-      if (data.includes('Balance')) {
-        hunt.balance = getNumber('Balance', data);
+      if (line.includes('Balance')) {
+        hunt.balance = getNumber('Balance', line);
         huntData = true;
         return;
       }
     }
 
     if (currentPlayer.name) {
-      if (data.includes('Loot')) {
-        currentPlayer.loot = getNumber('Loot', data);
+      if (line.includes('Loot')) {
+        currentPlayer.loot = getNumber('Loot', line);
         return;
       }
 
-      if (data.includes('Supplies')) {
-        currentPlayer.supplies = getNumber('Supplies', data);
+      if (line.includes('Supplies')) {
+        currentPlayer.supplies = getNumber('Supplies', line);
         return;
       }
 
-      if (data.includes('Balance')) {
-        currentPlayer.balance = getNumber('Balance', data);
+      if (line.includes('Balance')) {
+        currentPlayer.balance = getNumber('Balance', line);
         return;
       }
 
-      if (data.includes('Damage')) {
-        currentPlayer.damage = getNumber('Damage', data);
+      if (line.includes('Damage')) {
+        currentPlayer.damage = getNumber('Damage', line);
         return;
       }
 
-      if (data.includes('Healing')) {
-        currentPlayer.healing = getNumber('Healing', data);
+      if (line.includes('Healing')) {
+        currentPlayer.healing = getNumber('Healing', line);
       }
     }
 
-    if (data.includes('Healing')) {
+    if (line.includes('Healing')) {
       players = players.concat(currentPlayer);
       newPlayer = true;
     }

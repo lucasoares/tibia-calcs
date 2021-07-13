@@ -31,7 +31,7 @@ export function partyHuntValidation() {
       return false;
     }
 
-    return new RegExp('^Session data:.+?Healing: [\\d,]+[\\s]*$', 's').test(text);
+    return new RegExp('^Session data:.+?Healing:? [\\d,]+[\\s]*$', 's').test(text);
   };
 }
 
