@@ -29,26 +29,24 @@
     <p>Create and manage your party hunts.</p>
     <p>Click at the create button and paste the Session Data from the Party Hunt Analyzer.</p>
 
-    <v-btn
-        v-show="!creating"
-        rounded
-        color="primary"
-        @click="startCreating"
-    >Create
-    </v-btn>
+    <v-btn v-show="!creating" rounded color="primary" @click="startCreating">Create </v-btn>
 
-    <div
-        v-if="creating"
-    >
-      <HuntCreationForm
-          @cancel="cancel"
-          @close="cancel"
-      />
+    <div v-if="creating">
+      <HuntCreationForm @cancel="cancel" @close="cancel" />
     </div>
 
-    <HuntsTable/>
+    <HuntsTable />
 
-    <HuntResult/>
+    <div class="ad-container">
+      <Adsense
+        data-ad-client="ca-pub-4254262349718636"
+        data-ad-format="auto"
+        :data-full-width-responsive="true"
+      >
+      </Adsense>
+    </div>
+
+    <HuntResult />
   </div>
 </template>
 
@@ -79,21 +77,21 @@ export default {
 </script>
 
 <style>
-  .green-color {
-    color: green;
-  }
+.green-color {
+  color: green;
+}
 
-  .red-color {
-    color: red;
-  }
+.red-color {
+  color: red;
+}
 
-  .yellow-color {
-    color: yellow;
-  }
+.yellow-color {
+  color: yellow;
+}
 </style>
 
 <style scoped>
-  #main-title {
-    text-align: center;
-  }
+#main-title {
+  text-align: center;
+}
 </style>

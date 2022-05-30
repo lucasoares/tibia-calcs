@@ -34,26 +34,21 @@
 
           <v-row>
             <v-col sm="4" lg="3" xl="2">
-              <img :src="getBaseImage"/>
+              <img :src="getBaseImage" />
             </v-col>
             <v-col>
               <v-autocomplete
-                  class="imbuement-selector"
-                  :items="imbuements"
-                  label="Imbuement"
-                  v-model="selected"
-                  item-value="id"
-                  :item-text="getLabel"
+                class="imbuement-selector"
+                :items="imbuements"
+                label="Imbuement"
+                v-model="selected"
+                item-value="id"
+                :item-text="getLabel"
               ></v-autocomplete>
             </v-col>
           </v-row>
 
-          <v-radio-group
-              class="tier-select"
-              dense
-              v-model="tier"
-              mandatory
-          >
+          <v-radio-group class="tier-select" dense v-model="tier" mandatory>
             <v-radio :value="1" label="Basic"></v-radio>
             <v-radio :value="2" label="Intricate"></v-radio>
             <v-radio :value="3" label="Powerful"></v-radio>
@@ -64,38 +59,33 @@
           <h3>Price</h3>
 
           <v-row dense>
-            <v-col
-                v-for="n in 4"
-                :key="n"
-                cols="12"
-            >
-              <b v-if="imbuements[selected].goldToken && n===4">Or</b>
-              <v-row no-gutters
-                     v-if="imbuements[selected].goldToken && n === 4 || (n < 4 && tier >= n)"
+            <v-col v-for="n in 4" :key="n" cols="12">
+              <b v-if="imbuements[selected].goldToken && n === 4">Or</b>
+              <v-row
+                no-gutters
+                v-if="(imbuements[selected].goldToken && n === 4) || (n < 4 && tier >= n)"
               >
-                <ImbuementMaterialImage
-                    v-if="n === 4"
-                    v-model="goldToken"/>
+                <ImbuementMaterialImage v-if="n === 4" v-model="goldToken" />
                 <v-text-field
-                    v-if="n === 4"
-                    v-on:change="updateStore"
-                    type="number"
-                    class="material-price"
-                    v-model="goldToken.price"
-                    append-icon="mdi-currency-usd-circle-outline"
-                    :label="getMaterialLabel(n - 1)"/>
+                  v-if="n === 4"
+                  v-on:change="updateStore"
+                  type="number"
+                  class="material-price"
+                  v-model="goldToken.price"
+                  append-icon="mdi-currency-usd-circle-outline"
+                  :label="getMaterialLabel(n - 1)"
+                />
 
-                <ImbuementMaterialImage
-                    v-if="n < 4"
-                    v-model="selectedImbuement.materials[n-1]"/>
+                <ImbuementMaterialImage v-if="n < 4" v-model="selectedImbuement.materials[n - 1]" />
                 <v-text-field
-                    v-if="n < 4"
-                    v-on:change="updateStore"
-                    type="number"
-                    class="material-price"
-                    v-model="imbuements[selected].materials[n - 1].price"
-                    append-icon="mdi-currency-usd-circle-outline"
-                    :label="getMaterialLabel(n - 1)"/>
+                  v-if="n < 4"
+                  v-on:change="updateStore"
+                  type="number"
+                  class="material-price"
+                  v-model="imbuements[selected].materials[n - 1].price"
+                  append-icon="mdi-currency-usd-circle-outline"
+                  :label="getMaterialLabel(n - 1)"
+                />
               </v-row>
             </v-col>
           </v-row>
@@ -105,31 +95,50 @@
 
           <v-container class="imbuements-results">
             <v-row>
-              <v-col
-                  v-for="(option, n) in orderedOptions" :key="n"
-                  cols="12">
+              <v-col v-for="(option, n) in orderedOptions" :key="n" cols="12">
                 <div class="material-icon">
                   <ImbuementMaterialImage
-                      v-for="(_, i) in option.materials" :key="i"
-                      v-model="option.materials[i]"/>
+                    v-for="(_, i) in option.materials"
+                    :key="i"
+                    v-model="option.materials[i]"
+                  />
                 </div>
-                <p>Total Price: <span
+                <p>
+                  Total Price:
+                  <span
                     v-bind:class="{
                       'green--text': orderedOptions[n].best,
                       'red--text': !orderedOptions[n].best
-                    }">{{orderedOptions[n].price | formatNumber}}</span></p>
-                <p>Price per Hour: <span
+                    }"
+                    >{{ orderedOptions[n].price | formatNumber }}</span
+                  >
+                </p>
+                <p>
+                  Price per Hour:
+                  <span
                     v-bind:class="{
                       'green--text': orderedOptions[n].best,
                       'red--text': !orderedOptions[n].best
-                    }">{{getPricePerHour(orderedOptions[n].price) | formatNumber}}</span></p>
-                <v-divider class="materials-divider"/>
+                    }"
+                    >{{ getPricePerHour(orderedOptions[n].price) | formatNumber }}</span
+                  >
+                </p>
+                <v-divider class="materials-divider" />
               </v-col>
             </v-row>
           </v-container>
         </v-col>
       </v-row>
     </v-container>
+
+    <div class="ad-container">
+      <Adsense
+        data-ad-client="ca-pub-4254262349718636"
+        data-ad-format="auto"
+        :data-full-width-responsive="true"
+      >
+      </Adsense>
+    </div>
   </div>
 </template>
 
@@ -171,7 +180,9 @@ export default {
       }
     },
     getBaseImage() {
-      return `/images/imbuements/base/${this.normalizeString(this.selectedImbuement.name)}_${this.tier}.png`;
+      return `/images/imbuements/base/${this.normalizeString(this.selectedImbuement.name)}_${
+        this.tier
+      }.png`;
     },
     selectedImbuement() {
       return this.imbuements[this.selected];
@@ -271,45 +282,45 @@ export default {
       return Math.round(totalPrice / 20);
     },
     addToOptions(options, option) {
-      options.push(
-        {
-          materials: option,
-          price: this.getMaterialsPrice(option),
-        },
-      );
+      options.push({
+        materials: option,
+        price: this.getMaterialsPrice(option),
+      });
     },
   },
 };
 </script>
 
 <style scoped>
-  .materials-divider {
-    margin-bottom: 10px;
-  }
+.materials-divider {
+  margin-bottom: 10px;
+}
 
-  .material-price {
-    margin-left: 5px;
-  }
+.material-price {
+  margin-left: 5px;
+}
 
-  .imbuements-results {
-    padding: 0px 10% 0px 10%;
-  }
+.imbuements-results {
+  padding: 0px 10% 0px 10%;
+}
 
-  h1, h3, h4 {
-    text-align: center;
-  }
+h1,
+h3,
+h4 {
+  text-align: center;
+}
 
-  .imbuement-selector {
-    max-width: 80%;
-  }
+.imbuement-selector {
+  max-width: 80%;
+}
 
-  .tier-select {
-    max-width: 100px;
-  }
+.tier-select {
+  max-width: 100px;
+}
 
-  ::v-deep input::-webkit-outer-spin-button,
-  ::v-deep input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+::v-deep input::-webkit-outer-spin-button,
+::v-deep input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>
