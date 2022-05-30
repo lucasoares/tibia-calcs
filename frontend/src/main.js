@@ -23,6 +23,7 @@
 
 import Notifications from 'vue-notification';
 import Vue from 'vue';
+import Ads from 'vue-google-adsense';
 import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
 import router from './router';
@@ -40,6 +41,13 @@ Vue.use(VueAnalytics, {
 });
 
 Vue.use(Notifications);
+
+Vue.use(require('vue-script2'));
+
+Vue.use(Ads.Adsense);
+Vue.use(Ads.InArticleAdsense);
+Vue.use(Ads.InFeedAdsense);
+Vue.use(Ads.AutoAdsense, { adClient: 'ca-pub-4254262349718636', isNewAdsCode: true });
 
 new Vue({
   router,
