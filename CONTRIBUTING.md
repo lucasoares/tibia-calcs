@@ -15,7 +15,7 @@ If you know how to code or have better ideas for the page layout itself, we welc
 
 ``$ git clone git@github.com:yourname/tibia-calcs.git``
 
-* Don't modify or work on the master branch, we'll use it to always be in sync with tibia-calcs upstream.
+* Don't modify or work on the main branch, we'll use it to always be in sync with tibia-calcs upstream.
 
 ```
 $ git remote add upstream git@github.com:lucasoares/tibia-calcs.git
@@ -35,7 +35,7 @@ $ git commit -m "Changes the page layout. Fixes #3"
 $ git push origin changes-layout-3
 ```
 
-* Do a new pull request from your "changes-layout-3" branch to tibia-calcs "master".
+* Do a new pull request from your "changes-layout-3" branch to tibia-calcs "main".
 
 #### How to implement changes suggested on a pull request
 
@@ -43,23 +43,23 @@ Sometimes when you submit a PR, you will be asked to correct some code. You can 
 
 ``$ git commit -am "Fixes some typo found on PR"``
 
-Once everything is OK the Pull Request will be accepted and all changes will be squashed into a single commit to keep our master history as clean as possible.
+Once everything is OK the Pull Request will be accepted and all changes will be squashed into a single commit to keep our main history as clean as possible.
 
 #### How to keep your local branches updated
 
-To keep your local master branch updated with upstream master, regularly do:
+To keep your local main branch updated with upstream main, regularly do:
 
 ```
 $ git fetch upstream
-$ git checkout master
-$ git pull --rebase upstream master
+$ git checkout main
+$ git pull --rebase upstream main
 ```
 
 To update the branch you are coding in:
 
 ```
 $ git checkout changes-layout-3
-$ git rebase master
+$ git rebase main
 ```
 
 ### Licesing
@@ -86,7 +86,7 @@ For `.java` files:
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
+ * License available on https://github.com/lucasoares/tibia-calcs/blob/main/LICENSE.md
  */
 ```
 
@@ -111,7 +111,7 @@ For `.js` files:
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-  License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
+  License available on https://github.com/lucasoares/tibia-calcs/blob/main/LICENSE.md
 ===========================================================================
 */
 ```
@@ -137,7 +137,7 @@ For `.yaml` files:
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#  License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
+#  License available on https://github.com/lucasoares/tibia-calcs/blob/main/LICENSE.md
 #===========================================================================
 ```
 
@@ -163,7 +163,7 @@ For `.vue` files:
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-  License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
+  License available on https://github.com/lucasoares/tibia-calcs/blob/main/LICENSE.md
 ===========================================================================
 -->
 ```

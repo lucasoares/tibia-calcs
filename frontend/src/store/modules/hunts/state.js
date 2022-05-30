@@ -17,7 +17,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-  License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
+  License available on https://github.com/lucasoares/tibia-calcs/blob/main/LICENSE.md
 ===========================================================================
 */
 

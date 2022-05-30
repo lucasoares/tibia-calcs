@@ -1,4 +1,4 @@
-![Build](https://github.com/luizcsm/tibia-calc/workflows/Node.js%20CI/badge.svg?branch=master)
+![Build](https://github.com/luizcsm/tibia-calc/workflows/Node.js%20CI/badge.svg?branch=main)
 ![App Engine Deploy](https://github.com/lucasoares/tibia-calc/workflows/App%20Engine%20Deploy/badge.svg)
 
 # tibia-calcs
