@@ -7,15 +7,10 @@ Useful calculators and statistics for Tibia MMO.
 
 ## Structure
 
-This project has two main directories:
+This project has one main directory:
 - [frontend](frontend) - The web application of tibiacalcs.com
-- [backend](backend) - Application to populate player login history database to provide information that helps to find makers and second characters.
-All information processed are available in a Discord bot.
-The discord bot is private for now.
 
 Our frontend uses [Vue JS Framework](https://vuejs.org/).
-
-Our backend uses [Spring Framework](https://spring.io/) with Java 14.
 
 ### Licensing
 
