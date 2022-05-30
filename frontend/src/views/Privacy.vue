@@ -26,8 +26,7 @@
     <div class="eleven wide column" style=" padding: 0px; ">
       <div class="column" style=" ">
         <h1 class="ts header">
-          <span style="color: #333;">Privacy Policy</span>
-          <div></div>
+          <span>Privacy Policy</span>
         </h1>
         <p>
           We are committed to safeguarding your privacy. Contact us at if you have any questions or
@@ -37,7 +36,7 @@
           By using this site or/and our services, you consent to the Processing of your Personal
           Data as described in this Privacy Policy.
         </p>
-        <br>
+        <br />
         <h2 id="Table-of-Contents">
           <a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of
           Contents
@@ -380,8 +379,8 @@
           >.
         </p>
         <p>
-          We use Google Ads to show our visitors customized ads. Google has their own Privacy
-          Policy which you can review
+          We use Google Ads to show our visitors customized ads. Google has their own Privacy Policy
+          which you can review
           <a
             href="https://support.google.com/adspolicy/answer/6008942"
             rel="external nofollow"
@@ -412,7 +411,7 @@
           statistical purposes to keep track of the number of visits to the Website and which pages
           on the Website with a view to introducing improvements.
         </p>
-        <br>
+        <br />
         <h2 id="Tracking-Technology-“Cookies”">
           <a
             href="#Tracking-Technology-“Cookies”"
@@ -435,7 +434,7 @@
           requiring you to re-enter certain information, such as information required to use the
           Services.
         </p>
-        <br>
+        <br />
         <h2 id="Risks-Associated-with-the-Internet">
           <a
             href="#Risks-Associated-with-the-Internet"
@@ -452,7 +451,7 @@
           damages resulting from the transmission of confidential information or personal
           information over the Internet and that such communications are at your own risk.
         </p>
-        <br>
+        <br />
         <h2 id="Limitation-of-Liability">
           <a href="#Limitation-of-Liability" class="headerlink" title="Limitation of Liability"></a
           ><strong>Limitation of Liability</strong>
