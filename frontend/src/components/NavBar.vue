@@ -44,7 +44,13 @@
         </div>
 
         <div class="nav-item">
-          <a href="https://github.com/luizcsm/tibia-calc" target="_blank" rel="noopener noreferrer"
+          <router-link class="nav-link" to="/privacy">
+            Privacy Policy
+          </router-link>
+        </div>
+
+        <div class="nav-item">
+          <a href="https://github.com/lucasoares/tibia-calc" target="_blank" rel="noopener noreferrer"
              class="repo-link external">
             GitHub
             <v-icon size="14px">mdi-open-in-new</v-icon>

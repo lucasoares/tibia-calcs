@@ -24,6 +24,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Imbuements from '../views/Imbuements.vue';
+import Privacy from '../views/Privacy.vue';
 import Loot from '../views/Loot.vue';
 import Home from '../views/Home.vue';
 
@@ -52,6 +53,14 @@ const routes = [
     component: Imbuements,
     meta: {
       title: 'Tibia Calcs - Imbuements',
+    },
+  },
+  {
+    path: '/privacy',
+    name: 'Privacy Policy',
+    component: Privacy,
+    meta: {
+      title: 'Tibia Calcs - Privacy Policy',
     },
   },
   {
