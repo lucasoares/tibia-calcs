@@ -33,13 +33,16 @@ jobs:
       matrix:
         node-version: [14.x]
 
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     steps:
       - uses: actions/checkout@v2
-      - uses: google-github-actions/setup-gcloud@main
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
         with:
-          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
-          export_default_credentials: true
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'  
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -52,7 +55,6 @@ jobs:
         working-directory: frontend
       - id: deploy
         name: Deploy
-        uses: google-github-actions/deploy-appengine@main
+        uses: google-github-actions/deploy-appengine@v0
         with:
           deliverables: frontend/app.yaml
-          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}

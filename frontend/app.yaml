@@ -19,7 +19,7 @@
 #  License available on https://github.com/lucasoares/tibia-calcs/blob/master/LICENSE.md
 #===========================================================================
 
-runtime: nodejs12
+runtime: nodejs14
 
 handlers:
   # Serve all static files with urls ending with a file extension
