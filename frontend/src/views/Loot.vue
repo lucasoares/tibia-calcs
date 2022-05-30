@@ -40,7 +40,7 @@
     <div class="ad-container">
       <Adsense
         data-ad-client="ca-pub-4254262349718636"
-        data-ad-format="auto"
+        data-ad-slot="7936683191"
         :data-full-width-responsive="true"
       >
       </Adsense>
