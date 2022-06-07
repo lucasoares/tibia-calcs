@@ -29,60 +29,58 @@
     <h2>Tibia News</h2>
     <br/>
     <div class="news">
-      <v-flex xs8 offset-md2>
-        <div v-if="news.length == 0">
-          <v-skeleton-loader
-            v-bind="attrs"
-            type="article@4"
-          ></v-skeleton-loader>
-        </div>
-        <div v-if="news.length > 0">
-          <div v-for="article in news" :key="article.id" class="article">
-            <v-card v-bind:src="article.link">
-              <v-container>
-                <span class="headline">{{ article.title }}</span>
-                <br>
-                <v-chip small color="secondary" class="white--text">
-                  {{article.date}}
-                </v-chip>
-              </v-container>
-              <v-card-text v-html="article.content_html">
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <ShareNetwork
-                    network="twitter"
-                    :style="{color: '#1da1f2'}"
-                    :url="'https://tibiacalcs.com ' + article.link"
-                    :title="article.title"
-                    :quote="article.link"
-                    :media="article.link"
-                    hashtags="tibia,tibiacalcs"
-                  >
-                  <i class="fab fah fa-lg fa-twitter"></i>
-                  <span>Share on Twitter</span>
-                </ShareNetwork>
-                <v-spacer></v-spacer>
-
-                <v-btn
-                  small
-                  replace
-                  color="primary"
-                  v-bind:href="article.link"
-                  target="_blank"
-                  >Read More</v-btn
+      <div v-if="news.length == 0">
+        <v-skeleton-loader
+          v-bind="attrs"
+          type="article@4"
+        ></v-skeleton-loader>
+      </div>
+      <div v-if="news.length > 0">
+        <div v-for="article in news" :key="article.id" class="article">
+          <v-card v-bind:src="article.link">
+            <v-container>
+              <span class="headline">{{ article.title }}</span>
+              <br>
+              <v-chip small color="secondary" class="white--text">
+                {{article.date}}
+              </v-chip>
+            </v-container>
+            <v-card-text v-html="article.content_html">
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <ShareNetwork
+                  network="twitter"
+                  :style="{color: '#1da1f2'}"
+                  :url="'https://tibiacalcs.com ' + article.link"
+                  :title="article.title"
+                  :quote="article.link"
+                  :media="article.link"
+                  hashtags="tibia,tibiacalcs"
                 >
-              </v-card-actions>
-            </v-card>
-            <Adsense
-              data-ad-client="ca-pub-4254262349718636"
-              data-ad-slot="7936683191"
-              data-ad-format="auto"
-            >
-            </Adsense>
-          </div>
+                <i class="fab fah fa-lg fa-twitter"></i>
+                <span>Share on Twitter</span>
+              </ShareNetwork>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                small
+                replace
+                color="primary"
+                v-bind:href="article.link"
+                target="_blank"
+                >Read More</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+          <Adsense
+            data-ad-client="ca-pub-4254262349718636"
+            data-ad-slot="7936683191"
+            data-ad-format="auto"
+          >
+          </Adsense>
         </div>
-      </v-flex>
+      </div>
     </div>
   </div>
 </template>
