@@ -41,7 +41,6 @@
       <Adsense
         data-ad-client="ca-pub-4254262349718636"
         data-ad-slot="7936683191"
-        :data-full-width-responsive="true"
       >
       </Adsense>
     </div>

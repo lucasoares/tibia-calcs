@@ -23,27 +23,135 @@
 
 <template>
   <div class="home">
-    <h1 id="main-title">
-      Tibia Calcs
-    </h1>
-    <p class="description">
-      🛠️ Useful calculators for Tibia MMORPG
-    </p>
+    <h1 id="main-title">Tibia Calcs</h1>
+    <p class="description">🛠️ Useful news and tools for Tibia MMORPG</p>
+    <br/>
+    <h2>Tibia News</h2>
+    <br/>
+    <div class="news">
+      <v-flex xs8 offset-md2>
+        <div v-if="news.length == 0">
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="article@4"
+          ></v-skeleton-loader>
+        </div>
+        <div v-if="news.length > 0">
+          <div v-for="article in news" :key="article.id" class="article">
+            <v-card v-bind:src="article.link">
+              <v-container>
+                <span class="headline">{{ article.title }}</span>
+                <br>
+                <v-chip small color="secondary" class="white--text">
+                  {{article.date}}
+                </v-chip>
+              </v-container>
+              <v-card-text v-html="article.content_html">
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <ShareNetwork
+                    network="twitter"
+                    :style="{color: '#1da1f2'}"
+                    :url="'https://tibiacalcs.com ' + article.link"
+                    :title="article.title"
+                    :quote="article.link"
+                    :media="article.link"
+                    hashtags="tibia,tibiacalcs"
+                  >
+                  <i class="fab fah fa-lg fa-twitter"></i>
+                  <span>Share on Twitter</span>
+                </ShareNetwork>
+                <v-spacer></v-spacer>
 
-    <div class="ad-container">
-      <Adsense
-        data-ad-client="ca-pub-4254262349718636"
-        data-ad-slot="7936683191"
-        data-ad-format="auto"
-        :data-full-width-responsive="true"
-      >
-      </Adsense>
+                <v-btn
+                  small
+                  replace
+                  color="primary"
+                  v-bind:href="article.link"
+                  target="_blank"
+                  >Read More</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+            <Adsense
+              data-ad-client="ca-pub-4254262349718636"
+              data-ad-slot="7936683191"
+              data-ad-format="auto"
+            >
+            </Adsense>
+          </div>
+        </div>
+      </v-flex>
     </div>
   </div>
 </template>
 
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'News',
+  data() {
+    return {
+      news: [],
+    };
+  },
+  mounted() {
+    this.fetchNews();
+  },
+  methods: {
+    async fetchNews() {
+      const { data } = await axios.get('https://api.tibiadata.com/v3/news/latest');
+
+      const promises = [];
+
+      const responseNews = data.news;
+      for (let i = 0; i < responseNews.length && i < 10; i += 1) {
+        const news = responseNews[i];
+        promises.push(this.getNewsData(news.id));
+      }
+
+      const result = await Promise.all(promises);
+
+      this.news = result;
+
+      return result;
+    },
+    getNewsData: async (id) => {
+      const { data } = await axios.get(`https://api.tibiadata.com/v3/news/id/${id}`);
+
+      return {
+        title: data.news.title,
+        content_html: data.news.content_html,
+        id: data.news.id,
+        link: data.news.url,
+        date: data.news.date,
+      };
+    },
+  },
+};
+</script>
+
 <style>
-.home {
-  text-align: center;
-}
+  .home {
+    text-align: center;
+    height: 100vh;
+  }
+
+  div.news, div.news p {
+    text-align: left !important;
+  }
+
+  div.article {
+    margin-bottom: 1.5rem;
+  }
+
+  .headline {
+    text-align: center;
+  }
+
+  img {
+    margin: 10px;
+  }
 </style>
