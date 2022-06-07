@@ -55,6 +55,7 @@ export default {
   #app {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    height: 100%;
   }
 
   #main-title {
@@ -64,7 +65,7 @@ export default {
 
   main {
     padding: 2rem;
-    margin: 6rem 10% 0;
+    margin: 6rem 10% 3rem;
     border-radius: 25px;
   }
 </style>

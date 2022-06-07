@@ -21,6 +21,7 @@
 ===========================================================================
 */
 
+import VueSocialSharing from 'vue-social-sharing';
 import Notifications from 'vue-notification';
 import Vue from 'vue';
 import Ads from 'vue-google-adsense';
@@ -47,7 +48,8 @@ Vue.use(require('vue-script2'));
 Vue.use(Ads.Adsense);
 Vue.use(Ads.InArticleAdsense);
 Vue.use(Ads.InFeedAdsense);
-Vue.use(Ads.AutoAdsense, { adClient: 'ca-pub-4254262349718636', isNewAdsCode: true });
+
+Vue.use(VueSocialSharing);
 
 new Vue({
   router,
