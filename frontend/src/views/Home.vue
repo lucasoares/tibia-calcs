@@ -136,7 +136,6 @@ export default {
 <style>
   .home {
     text-align: center;
-    height: 100vh;
   }
 
   div.news, div.news p {
