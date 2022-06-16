@@ -74,6 +74,7 @@
             </v-card-actions>
           </v-card>
           <Adsense
+            style="text-align:center;"
             data-ad-client="ca-pub-4254262349718636"
             data-ad-slot="7936683191"
             data-ad-format="auto"
